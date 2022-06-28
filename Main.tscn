@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://fonts/roboto-medium-title.tres" type="DynamicFont" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://icons/reject.png" type="Texture" id=5]
 [ext_resource path="res://src/color_button.gd" type="Script" id=6]
 [ext_resource path="res://icons/minimize-sign.png" type="Texture" id=7]
+[ext_resource path="res://icons/shrink.png" type="Texture" id=8]
+[ext_resource path="res://images/sample.jpg" type="Texture" id=10]
 
 [node name="Main" type="CanvasLayer"]
 
@@ -15,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
-_row = NodePath("VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row")
+_row = NodePath("Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row")
 
 [node name="Background" type="ColorRect" parent="Control"]
 anchor_right = 1.0
@@ -23,20 +25,20 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.176471, 0.188235, 0.258824, 1 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="Doc" type="VBoxContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 custom_constants/separation = 0
 
-[node name="Header" type="ColorRect" parent="Control/VBoxContainer"]
+[node name="Header" type="ColorRect" parent="Control/Doc"]
 margin_right = 1024.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 mouse_default_cursor_shape = 6
 color = Color( 0.0745098, 0.0823529, 0.12549, 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/Header"]
+[node name="Margin" type="MarginContainer" parent="Control/Doc/Header"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -45,7 +47,7 @@ custom_constants/margin_top = 8
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/Header/MarginContainer"]
+[node name="List" type="HBoxContainer" parent="Control/Doc/Header/Margin"]
 margin_left = 16.0
 margin_top = 8.0
 margin_right = 1008.0
@@ -54,7 +56,7 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Title" type="Label" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer"]
+[node name="Title" type="Label" parent="Control/Doc/Header/Margin/List"]
 margin_top = 5.0
 margin_right = 247.0
 margin_bottom = 43.0
@@ -63,39 +65,67 @@ text = "Yu-Gi-Oh! Collect"
 align = 1
 valign = 1
 
-[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Control/Doc/Header/Margin/List"]
 margin_left = 251.0
 margin_right = 836.0
 margin_bottom = 48.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer"]
+[node name="SysNav" type="HBoxContainer" parent="Control/Doc/Header/Margin/List"]
 margin_left = 840.0
 margin_right = 992.0
 margin_bottom = 48.0
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="Minimize" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
+self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
 margin_right = 48.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+script = ExtResource( 6 )
+
+[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Minimize"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 13.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 48, 48 )
+rect_scale = Vector2( 0.5, 0.5 )
 mouse_filter = 2
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="TextureRect2" type="TextureRect" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="Fullscreen" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
+self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
 margin_left = 52.0
 margin_right = 100.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
+script = ExtResource( 6 )
+
+[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Fullscreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 13.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 48, 48 )
+rect_scale = Vector2( 0.5, 0.5 )
 mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="Shrink" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
+visible = false
 self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
 margin_left = 104.0
 margin_right = 152.0
@@ -103,7 +133,29 @@ margin_bottom = 48.0
 rect_min_size = Vector2( 48, 48 )
 script = ExtResource( 6 )
 
-[node name="TextureRect3" type="TextureRect" parent="Control/VBoxContainer/Header/MarginContainer/HBoxContainer/HBoxContainer/ColorRect"]
+[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Shrink"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 13.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 48, 48 )
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 1
+
+[node name="Exit" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
+self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
+margin_left = 104.0
+margin_right = 152.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+script = ExtResource( 6 )
+
+[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Exit"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 13.0
@@ -117,33 +169,29 @@ texture = ExtResource( 5 )
 expand = true
 stretch_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="IndexBody" type="HBoxContainer" parent="Control/Doc"]
 margin_top = 64.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SideBar" type="ColorRect" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="SideBar" type="ColorRect" parent="Control/Doc/IndexBody"]
 margin_right = 240.0
 margin_bottom = 536.0
 rect_min_size = Vector2( 240, 0 )
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/SideBar"]
+[node name="Margin" type="MarginContainer" parent="Control/Doc/IndexBody/SideBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer"]
-margin_right = 240.0
-margin_bottom = 536.0
 size_flags_vertical = 3
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer"]
+[node name="List" type="VBoxContainer" parent="Control/Doc/IndexBody/SideBar/Margin"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 224.0
@@ -151,50 +199,50 @@ margin_bottom = 520.0
 size_flags_vertical = 3
 custom_constants/separation = 1
 
-[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_right = 208.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 12, 36 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 37.0
 margin_right = 208.0
 margin_bottom = 56.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer2"]
 margin_right = 118.0
 margin_bottom = 19.0
 text = "Sets Completed "
 
-[node name="Label2" type="Label" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer2"]
 margin_left = 122.0
 margin_right = 131.0
 margin_bottom = 19.0
 text = "0"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 57.0
 margin_right = 208.0
 margin_bottom = 76.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer"]
 margin_right = 137.0
 margin_bottom = 19.0
 text = "Overall Completion"
 
-[node name="Label2" type="Label" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer"]
 margin_left = 141.0
 margin_right = 162.0
 margin_bottom = 19.0
 text = "0%"
 
-[node name="HSeparator2" type="HSeparator" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 77.0
 margin_right = 208.0
 margin_bottom = 113.0
 rect_min_size = Vector2( 12, 36 )
 
-[node name="Button" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="All" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 114.0
 margin_right = 208.0
 margin_bottom = 146.0
@@ -205,7 +253,7 @@ text = "All"
 flat = true
 align = 0
 
-[node name="Button2" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 147.0
 margin_right = 208.0
 margin_bottom = 179.0
@@ -216,7 +264,7 @@ text = "Normals & Effects"
 flat = true
 align = 0
 
-[node name="Button3" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button3" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 180.0
 margin_right = 208.0
 margin_bottom = 212.0
@@ -227,7 +275,7 @@ text = "Rituals"
 flat = true
 align = 0
 
-[node name="Button4" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button4" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 213.0
 margin_right = 208.0
 margin_bottom = 245.0
@@ -238,7 +286,7 @@ text = "Fusions"
 flat = true
 align = 0
 
-[node name="Button5" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button5" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 246.0
 margin_right = 208.0
 margin_bottom = 278.0
@@ -249,7 +297,7 @@ text = "Synchros"
 flat = true
 align = 0
 
-[node name="Button6" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button6" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 279.0
 margin_right = 208.0
 margin_bottom = 311.0
@@ -260,7 +308,7 @@ text = "XYZs"
 flat = true
 align = 0
 
-[node name="Button7" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button7" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 312.0
 margin_right = 208.0
 margin_bottom = 344.0
@@ -271,7 +319,7 @@ text = "Pendelums"
 flat = true
 align = 0
 
-[node name="Button8" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button8" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 345.0
 margin_right = 208.0
 margin_bottom = 377.0
@@ -282,7 +330,7 @@ text = "Links"
 flat = true
 align = 0
 
-[node name="Button9" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button9" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 378.0
 margin_right = 208.0
 margin_bottom = 410.0
@@ -293,7 +341,7 @@ text = "Spells"
 flat = true
 align = 0
 
-[node name="Button10" type="Button" parent="Control/VBoxContainer/HBoxContainer/SideBar/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Button10" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 411.0
 margin_right = 208.0
 margin_bottom = 443.0
@@ -304,7 +352,7 @@ text = "Traps"
 flat = true
 align = 0
 
-[node name="Body" type="MarginContainer" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="Body" type="MarginContainer" parent="Control/Doc/IndexBody"]
 margin_left = 244.0
 margin_right = 1024.0
 margin_bottom = 536.0
@@ -314,14 +362,14 @@ custom_constants/margin_top = 16
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/HBoxContainer/Body"]
+[node name="TableBackground" type="ColorRect" parent="Control/Doc/IndexBody/Body"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 764.0
 margin_bottom = 520.0
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
-[node name="Table" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect"]
+[node name="Table" type="VBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
@@ -329,12 +377,12 @@ margin_top = 16.0
 margin_right = -16.0
 margin_bottom = -16.0
 
-[node name="Title" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table"]
+[node name="Title" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
 margin_right = 716.0
 margin_bottom = 19.0
 text = "Sets"
 
-[node name="Header" type="Button" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table"]
+[node name="Header" type="Button" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
 margin_top = 23.0
 margin_right = 716.0
 margin_bottom = 48.0
@@ -342,12 +390,12 @@ size_flags_horizontal = 3
 disabled = true
 flat = true
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header"]
+[node name="ColorRect" type="ColorRect" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.176471, 0.188235, 0.258824, 1 )
 
-[node name="Data" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header"]
+[node name="Data" type="HBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -355,14 +403,14 @@ margin_right = -12.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Name" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header/Data"]
+[node name="Name" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
 margin_top = 3.0
 margin_right = 384.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Name"
 
-[node name="Code" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header/Data"]
+[node name="Code" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
 margin_left = 388.0
 margin_top = 3.0
 margin_right = 438.0
@@ -370,7 +418,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 text = "Code"
 
-[node name="Collected" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header/Data"]
+[node name="Collected" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
 margin_left = 442.0
 margin_top = 3.0
 margin_right = 542.0
@@ -378,14 +426,14 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "Collected"
 
-[node name="Percentage" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header/Data"]
+[node name="Percentage" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
 margin_left = 546.0
 margin_top = 3.0
 margin_right = 596.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="ReleaseDate" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Header/Data"]
+[node name="ReleaseDate" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
 margin_left = 600.0
 margin_top = 3.0
 margin_right = 700.0
@@ -393,7 +441,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "00/00/0000"
 
-[node name="Margin" type="ScrollContainer" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table"]
+[node name="Margin" type="ScrollContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
 margin_top = 52.0
 margin_right = 716.0
 margin_bottom = 472.0
@@ -401,13 +449,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="Body" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin"]
+[node name="Body" type="VBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin"]
 margin_right = 716.0
 margin_bottom = 420.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Row" type="Button" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body"]
+[node name="Row" type="Button" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body"]
 visible = false
 margin_right = 716.0
 margin_bottom = 25.0
@@ -416,13 +464,14 @@ size_flags_horizontal = 3
 disabled = true
 flat = true
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row"]
+[node name="ColorRect" type="ColorRect" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0.176471, 0.188235, 0.258824, 1 )
 
-[node name="Data" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row"]
+[node name="Data" type="HBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -430,14 +479,14 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Name" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row/Data"]
+[node name="Name" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_top = 3.0
 margin_right = 396.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
-text = "-"
+text = "01234567890123456789012345678901234567890"
 
-[node name="Code" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row/Data"]
+[node name="Code" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 400.0
 margin_top = 3.0
 margin_right = 450.0
@@ -445,7 +494,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 text = "XXXX"
 
-[node name="Collected" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row/Data"]
+[node name="Collected" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 454.0
 margin_top = 3.0
 margin_right = 554.0
@@ -453,7 +502,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "000/000"
 
-[node name="Percentage" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row/Data"]
+[node name="Percentage" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 558.0
 margin_top = 3.0
 margin_right = 608.0
@@ -461,7 +510,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 text = "100%"
 
-[node name="ReleaseDate" type="Label" parent="Control/VBoxContainer/HBoxContainer/Body/ColorRect/Table/Margin/Body/Row/Data"]
+[node name="ReleaseDate" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 612.0
 margin_top = 3.0
 margin_right = 712.0
@@ -469,5 +518,167 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "00/00/0000"
 
-[connection signal="gui_input" from="Control/VBoxContainer/Header" to="Control" method="header_gui_input"]
-[connection signal="pressed" from="Control/VBoxContainer/Header/MarginContainer/HBoxContainer/HBoxContainer/ColorRect" to="Control" method="exit_pressed"]
+[node name="CardsetBody" type="MarginContainer" parent="Control/Doc"]
+visible = false
+margin_top = 332.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Doc/CardsetBody"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 252.0
+
+[node name="Button" type="Button" parent="Control/Doc/CardsetBody/VBoxContainer"]
+margin_right = 47.0
+margin_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Back"
+
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/CardsetBody/VBoxContainer"]
+margin_top = 29.0
+margin_right = 992.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Doc/CardsetBody/VBoxContainer"]
+margin_top = 41.0
+margin_right = 992.0
+margin_bottom = 236.0
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer"]
+margin_right = 992.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 16
+custom_constants/hseparation = 42
+columns = 6
+
+[node name="Card" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
+margin_right = 164.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 164, 240 )
+
+[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card"]
+margin_right = 164.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 164, 240 )
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card"]
+margin_top = 244.0
+margin_right = 164.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+
+[node name="Card2" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
+margin_left = 206.0
+margin_right = 370.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 164, 240 )
+
+[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card2"]
+margin_right = 164.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 164, 240 )
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card2"]
+margin_top = 244.0
+margin_right = 164.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+
+[node name="Card3" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
+margin_left = 412.0
+margin_right = 576.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 164, 240 )
+
+[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card3"]
+margin_right = 164.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 164, 240 )
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card3"]
+margin_top = 244.0
+margin_right = 164.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+
+[node name="Card4" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
+margin_left = 618.0
+margin_right = 782.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 164, 240 )
+
+[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card4"]
+margin_right = 164.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 164, 240 )
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card4"]
+margin_top = 244.0
+margin_right = 164.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+
+[node name="Card5" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
+margin_left = 824.0
+margin_right = 988.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 164, 240 )
+
+[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card5"]
+margin_right = 164.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 164, 240 )
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card5"]
+margin_top = 244.0
+margin_right = 164.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+
+[connection signal="gui_input" from="Control/Doc/Header" to="Control" method="header_gui_input"]
+[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Minimize" to="Control" method="minimize_pressed"]
+[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Fullscreen" to="Control" method="fullscreen_pressed"]
+[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Shrink" to="Control" method="shrink_pressed"]
+[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Exit" to="Control" method="exit_pressed"]

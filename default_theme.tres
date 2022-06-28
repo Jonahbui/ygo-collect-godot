@@ -1,12 +1,35 @@
-[gd_resource type="Theme" load_steps=4 format=2]
+[gd_resource type="Theme" load_steps=6 format=2]
 
 [ext_resource path="res://fonts/roboto-medium.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/Roboto-Medium.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="DynamicFont" id=3]
+size = 12
+use_mipmaps = true
+font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
 [resource]
 default_font = ExtResource( 1 )
 HSeparator/styles/separator = SubResource( 1 )
+RichTextLabel/colors/default_color = Color( 1, 1, 1, 1 )
+RichTextLabel/colors/font_color_selected = Color( 1, 1, 1, 1 )
+RichTextLabel/colors/font_color_shadow = Color( 1, 1, 1, 1 )
+RichTextLabel/colors/selection_color = Color( 1, 1, 1, 1 )
+RichTextLabel/constants/line_separation = 0
+RichTextLabel/constants/shadow_as_outline = 0
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 0
+RichTextLabel/constants/table_hseparation = 0
+RichTextLabel/constants/table_vseparation = 0
+RichTextLabel/fonts/bold_font = null
+RichTextLabel/fonts/bold_italics_font = null
+RichTextLabel/fonts/italics_font = null
+RichTextLabel/fonts/mono_font = null
+RichTextLabel/fonts/normal_font = SubResource( 3 )
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = null
 VSeparator/styles/separator = SubResource( 2 )

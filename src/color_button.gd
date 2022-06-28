@@ -28,5 +28,5 @@ func on_mouse_exited() -> void:
 func on_gui_input(event:InputEvent) -> void:
   if event is InputEventMouseButton:
     if event.get_button_index() == 1:
-      if event.pressed:
+      if not event.pressed:
         emit_signal("pressed")

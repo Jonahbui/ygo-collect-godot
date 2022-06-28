@@ -1,3 +1,4 @@
+class_name Main
 extends Control
 
 var following := false
@@ -9,6 +10,12 @@ onready var row = get_node(_row)
 
 
 func _ready() -> void:
+  OS.window_resizable = true
+  if OS.window_fullscreen:
+    fullscreen_pressed()
+  else:
+    shrink_pressed()
+  
   var file = File.new()
   file.open("res://data/cardsets.php", file.READ)
   var text = file.get_as_text()
@@ -16,6 +23,8 @@ func _ready() -> void:
   var parse := JSON.parse(text)
   if parse.error == OK:
     cardsets = parse.result
+    # Default to sort by date
+    cardsets.sort_custom(self, "sort_by_date_desc")
     form_cardsets(cardsets)
   else:
     # TODO: show error
@@ -25,7 +34,7 @@ func _ready() -> void:
 func form_cardsets(cardsets:Array) -> void:
   for cardset in cardsets:
     var new_row = row.duplicate()
-    new_row.connect("pressed", self, "carset_pressed", [cardset.set_code])
+    new_row.connect("pressed", self, "cardset_pressed", [cardset.set_code])
     
     var name : Label = new_row.get_node('Data/Name')
     var code : Label = new_row.get_node('Data/Code')
@@ -33,7 +42,7 @@ func form_cardsets(cardsets:Array) -> void:
     var percentage : Label = new_row.get_node('Data/Percentage')
     var release_date : Label = new_row.get_node('Data/ReleaseDate')
     
-    name.text = cardset.set_name
+    name.text = Stringify.ellipse(cardset.set_name)
     code.text = cardset.set_code
     var cards_collected := 0
     var num_of_cards := int(cardset.num_of_cards)
@@ -42,6 +51,24 @@ func form_cardsets(cardsets:Array) -> void:
     release_date.text = cardset.tcg_date if cardset.has('tcg_date') else 'Unknown'
     row.get_parent().call_deferred('add_child', new_row)
     new_row.show()
+
+
+
+static func sort_by_date(a:Dictionary,b:Dictionary) -> bool:
+  if not a.has('tcg_date'):
+    return true
+  if not b.has('tcg_date'):
+    return false
+  return a.tcg_date < b.tcg_date
+
+
+static func sort_by_date_desc(a:Dictionary, b:Dictionary) -> bool:
+  if not a.has('tcg_date'):
+    return false
+  if not b.has('tcg_date'):
+    return true
+  return a.tcg_date > b.tcg_date
+
 
 
 func header_gui_input(event:InputEvent) -> void:
@@ -54,8 +81,24 @@ func header_gui_input(event:InputEvent) -> void:
 
 
 func cardset_pressed(set_code:String) -> void:
+  print("here")
   print(set_code)
 
 
-func exit_pressed():
+func minimize_pressed() -> void:
+  OS.window_minimized = true
+
+
+func fullscreen_pressed() -> void:
+  OS.window_fullscreen = true
+  $Doc/Header/Margin/List/SysNav/Shrink.show()
+  $Doc/Header/Margin/List/SysNav/Fullscreen.hide()
+  
+
+func shrink_pressed() -> void:
+  OS.window_fullscreen = false
+  $Doc/Header/Margin/List/SysNav/Shrink.hide()
+  $Doc/Header/Margin/List/SysNav/Fullscreen.show()
+
+func exit_pressed() -> void:
   get_tree().quit()
