@@ -9,15 +9,40 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "Card",
+"language": "GDScript",
+"path": "res://src/card.gd"
+}, {
+"base": "Control",
+"class": "CardSet",
+"language": "GDScript",
+"path": "res://src/card_set.gd"
+}, {
 "base": "ColorRect",
 "class": "ColorButton",
 "language": "GDScript",
 "path": "res://src/color_button.gd"
 }, {
+"base": "Reference",
+"class": "Externals",
+"language": "GDScript",
+"path": "res://src/externals.gd"
+}, {
 "base": "Control",
 "class": "Main",
 "language": "GDScript",
 "path": "res://src/main.gd"
+}, {
+"base": "Node",
+"class": "Parse",
+"language": "GDScript",
+"path": "res://src/parse.gd"
+}, {
+"base": "Resource",
+"class": "Set",
+"language": "GDScript",
+"path": "res://src/set.gd"
 }, {
 "base": "Reference",
 "class": "Stringify",
@@ -25,20 +50,26 @@ _global_script_classes=[ {
 "path": "res://src/stringify.gd"
 } ]
 _global_script_class_icons={
+"Card": "",
+"CardSet": "",
 "ColorButton": "",
+"Externals": "",
 "Main": "",
+"Parse": "",
+"Set": "",
 "Stringify": ""
 }
 
 [application]
 
 config/name="ygo-collect"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Boot.tscn"
 config/icon="res://icon.png"
 
 [display]
 
 window/size/borderless=true
+window/dpi/allow_hidpi=true
 
 [physics]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://fonts/roboto-medium-title.tres" type="DynamicFont" id=2]
@@ -8,7 +8,10 @@
 [ext_resource path="res://src/color_button.gd" type="Script" id=6]
 [ext_resource path="res://icons/minimize-sign.png" type="Texture" id=7]
 [ext_resource path="res://icons/shrink.png" type="Texture" id=8]
+[ext_resource path="res://src/card_set.gd" type="Script" id=9]
 [ext_resource path="res://images/sample.jpg" type="Texture" id=10]
+[ext_resource path="res://icon.png" type="Texture" id=11]
+[ext_resource path="res://fonts/roboto-medium-header1.tres" type="DynamicFont" id=12]
 
 [node name="Main" type="CanvasLayer"]
 
@@ -37,6 +40,9 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 mouse_default_cursor_shape = 6
 color = Color( 0.0745098, 0.0823529, 0.12549, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Margin" type="MarginContainer" parent="Control/Doc/Header"]
 anchor_right = 1.0
@@ -77,6 +83,7 @@ margin_left = 840.0
 margin_right = 992.0
 margin_bottom = 48.0
 mouse_filter = 2
+size_flags_vertical = 3
 
 [node name="Minimize" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
 self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
@@ -253,7 +260,7 @@ text = "All"
 flat = true
 align = 0
 
-[node name="Button2" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Normal_Effects" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 147.0
 margin_right = 208.0
 margin_bottom = 179.0
@@ -264,7 +271,7 @@ text = "Normals & Effects"
 flat = true
 align = 0
 
-[node name="Button3" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Rituals" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 180.0
 margin_right = 208.0
 margin_bottom = 212.0
@@ -275,7 +282,7 @@ text = "Rituals"
 flat = true
 align = 0
 
-[node name="Button4" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Fusions" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 213.0
 margin_right = 208.0
 margin_bottom = 245.0
@@ -286,7 +293,7 @@ text = "Fusions"
 flat = true
 align = 0
 
-[node name="Button5" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Synchros" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 246.0
 margin_right = 208.0
 margin_bottom = 278.0
@@ -297,7 +304,7 @@ text = "Synchros"
 flat = true
 align = 0
 
-[node name="Button6" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="XYZs" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 279.0
 margin_right = 208.0
 margin_bottom = 311.0
@@ -308,7 +315,7 @@ text = "XYZs"
 flat = true
 align = 0
 
-[node name="Button7" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Pendelums" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 312.0
 margin_right = 208.0
 margin_bottom = 344.0
@@ -319,7 +326,7 @@ text = "Pendelums"
 flat = true
 align = 0
 
-[node name="Button8" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Links" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 345.0
 margin_right = 208.0
 margin_bottom = 377.0
@@ -330,7 +337,7 @@ text = "Links"
 flat = true
 align = 0
 
-[node name="Button9" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Spells" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 378.0
 margin_right = 208.0
 margin_bottom = 410.0
@@ -341,7 +348,7 @@ text = "Spells"
 flat = true
 align = 0
 
-[node name="Button10" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Traps" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
 margin_top = 411.0
 margin_right = 208.0
 margin_bottom = 443.0
@@ -351,6 +358,17 @@ size_flags_vertical = 0
 text = "Traps"
 flat = true
 align = 0
+
+[node name="Settings" type="TextureButton" parent="Control/Doc/IndexBody/SideBar"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 9.0
+margin_top = -37.0
+margin_right = 36.0
+margin_bottom = -8.0
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 5
 
 [node name="Body" type="MarginContainer" parent="Control/Doc/IndexBody"]
 margin_left = 244.0
@@ -439,7 +457,7 @@ margin_top = 3.0
 margin_right = 700.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
-text = "00/00/0000"
+text = "Date"
 
 [node name="Margin" type="ScrollContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
 margin_top = 52.0
@@ -461,8 +479,9 @@ margin_right = 716.0
 margin_bottom = 25.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
-disabled = true
 flat = true
+clip_text = true
+align = 0
 
 [node name="ColorRect" type="ColorRect" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row"]
 visible = false
@@ -481,10 +500,11 @@ size_flags_vertical = 3
 
 [node name="Name" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_top = 3.0
-margin_right = 396.0
+margin_right = 380.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "01234567890123456789012345678901234567890"
+clip_text = true
 
 [node name="Code" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 400.0
@@ -523,162 +543,238 @@ visible = false
 margin_top = 332.0
 margin_right = 1024.0
 margin_bottom = 600.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
+script = ExtResource( 9 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Doc/CardsetBody"]
+[node name="HTTPRequest" type="HTTPRequest" parent="Control/Doc/CardsetBody"]
+
+[node name="List" type="VBoxContainer" parent="Control/Doc/CardsetBody"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 1008.0
 margin_bottom = 252.0
+size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="Control/Doc/CardsetBody/VBoxContainer"]
+[node name="Back" type="Button" parent="Control/Doc/CardsetBody/List"]
 margin_right = 47.0
 margin_bottom = 25.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Back"
 
-[node name="HSeparator" type="HSeparator" parent="Control/Doc/CardsetBody/VBoxContainer"]
+[node name="SetName" type="Label" parent="Control/Doc/CardsetBody/List"]
 margin_top = 29.0
 margin_right = 992.0
-margin_bottom = 37.0
+margin_bottom = 48.0
+text = "Set Name"
+align = 1
+
+[node name="Info" type="HBoxContainer" parent="Control/Doc/CardsetBody/List"]
+margin_top = 52.0
+margin_right = 992.0
+margin_bottom = 71.0
+alignment = 1
+
+[node name="TitleCollect" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+margin_right = 75.0
+margin_bottom = 19.0
+text = "Collected: "
+align = 1
+
+[node name="Collect" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+margin_left = 79.0
+margin_right = 88.0
+margin_bottom = 19.0
+text = "0"
+align = 1
+
+[node name="Divisor" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+margin_left = 92.0
+margin_right = 98.0
+margin_bottom = 19.0
+text = "/"
+align = 1
+
+[node name="CardsInSet" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+margin_left = 102.0
+margin_right = 112.0
+margin_bottom = 19.0
+text = "X"
+align = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/Doc/CardsetBody/List/Info"]
+margin_left = 116.0
+margin_right = 869.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 12, 0 )
+size_flags_horizontal = 3
+
+[node name="CardQuantityTitle" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+margin_left = 873.0
+margin_right = 979.0
+margin_bottom = 19.0
+text = "Card Quantity: "
+align = 1
+
+[node name="CardQuantity" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+margin_left = 983.0
+margin_right = 992.0
+margin_bottom = 19.0
+text = "0"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/CardsetBody/List"]
+margin_top = 75.0
+margin_right = 992.0
+margin_bottom = 83.0
 rect_min_size = Vector2( 0, 8 )
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control/Doc/CardsetBody/VBoxContainer"]
-margin_top = 41.0
+[node name="Scroll" type="ScrollContainer" parent="Control/Doc/CardsetBody/List"]
+visible = false
+margin_top = 87.0
 margin_right = 992.0
-margin_bottom = 236.0
+margin_bottom = 504.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
+scroll_horizontal_enabled = false
 
-[node name="GridContainer" type="GridContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer"]
+[node name="Grid" type="GridContainer" parent="Control/Doc/CardsetBody/List/Scroll"]
 margin_right = 992.0
-margin_bottom = 292.0
+margin_bottom = 417.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
-custom_constants/hseparation = 42
-columns = 6
+custom_constants/hseparation = 35
+columns = 5
 
-[node name="Card" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
-margin_right = 164.0
+[node name="Card" type="VBoxContainer" parent="Control/Doc/CardsetBody/List/Scroll/Grid"]
+margin_right = 165.0
 margin_bottom = 292.0
-rect_min_size = Vector2( 164, 240 )
+rect_min_size = Vector2( 165, 240 )
 
-[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card"]
-margin_right = 164.0
+[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/List/Scroll/Grid/Card"]
+margin_right = 165.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 164, 240 )
 texture_normal = ExtResource( 10 )
 expand = true
 stretch_mode = 4
 
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card"]
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/List/Scroll/Grid/Card"]
 margin_top = 244.0
-margin_right = 164.0
+margin_right = 165.0
 margin_bottom = 292.0
 rect_min_size = Vector2( 0, 48 )
 size_flags_horizontal = 3
 size_flags_vertical = 5
-text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+text = "Sample Card"
 
-[node name="Card2" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 206.0
-margin_right = 370.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 164, 240 )
-
-[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card2"]
-margin_right = 164.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 164, 240 )
-texture_normal = ExtResource( 10 )
-expand = true
-stretch_mode = 4
-
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card2"]
-margin_top = 244.0
-margin_right = 164.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 0, 48 )
+[node name="Settings" type="MarginContainer" parent="Control/Doc"]
+visible = false
+margin_top = 64.0
+margin_right = 1024.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+size_flags_vertical = 3
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
 
-[node name="Card3" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 412.0
-margin_right = 576.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 164, 240 )
+[node name="List" type="VBoxContainer" parent="Control/Doc/Settings"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 520.0
 
-[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card3"]
-margin_right = 164.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 164, 240 )
-texture_normal = ExtResource( 10 )
-expand = true
-stretch_mode = 4
+[node name="TitleSet" type="Label" parent="Control/Doc/Settings/List"]
+margin_right = 992.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/font = ExtResource( 12 )
+text = "Set"
 
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card3"]
-margin_top = 244.0
-margin_right = 164.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 0, 48 )
-size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/Settings/List"]
+margin_top = 33.0
+margin_right = 992.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 0, 8 )
 
-[node name="Card4" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 618.0
-margin_right = 782.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 164, 240 )
+[node name="TitleSetFilter" type="Label" parent="Control/Doc/Settings/List"]
+margin_top = 45.0
+margin_right = 992.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 200, 0 )
+text = "Filters"
 
-[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card4"]
-margin_right = 164.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 164, 240 )
-texture_normal = ExtResource( 10 )
-expand = true
-stretch_mode = 4
+[node name="HSeparator2" type="HSeparator" parent="Control/Doc/Settings/List"]
+margin_top = 68.0
+margin_right = 992.0
+margin_bottom = 72.0
 
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card4"]
-margin_top = 244.0
-margin_right = 164.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 0, 48 )
-size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+[node name="SetPromotions" type="HBoxContainer" parent="Control/Doc/Settings/List"]
+margin_top = 76.0
+margin_right = 992.0
+margin_bottom = 103.0
 
-[node name="Card5" type="VBoxContainer" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 824.0
-margin_right = 988.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 164, 240 )
+[node name="Desc" type="Label" parent="Control/Doc/Settings/List/SetPromotions"]
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 200, 0 )
+text = "Show Promotions"
 
-[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card5"]
-margin_right = 164.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 164, 240 )
-texture_normal = ExtResource( 10 )
-expand = true
-stretch_mode = 4
+[node name="CheckBox" type="CheckBox" parent="Control/Doc/Settings/List/SetPromotions"]
+margin_left = 204.0
+margin_right = 228.0
+margin_bottom = 27.0
+pressed = true
 
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/VBoxContainer/ScrollContainer/GridContainer/Card5"]
-margin_top = 244.0
-margin_right = 164.0
-margin_bottom = 292.0
-rect_min_size = Vector2( 0, 48 )
-size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "\"Ancient Warriors Saga - Sun-Liu Alliance\""
+[node name="SetSneakPeek" type="HBoxContainer" parent="Control/Doc/Settings/List"]
+margin_top = 107.0
+margin_right = 992.0
+margin_bottom = 134.0
+
+[node name="Label" type="Label" parent="Control/Doc/Settings/List/SetSneakPeek"]
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 200, 0 )
+text = "Show Sneak Peeks"
+
+[node name="CheckBox" type="CheckBox" parent="Control/Doc/Settings/List/SetSneakPeek"]
+margin_left = 204.0
+margin_right = 228.0
+margin_bottom = 27.0
+pressed = true
+
+[node name="SetNonEnglish" type="HBoxContainer" parent="Control/Doc/Settings/List"]
+margin_top = 138.0
+margin_right = 992.0
+margin_bottom = 165.0
+
+[node name="Label" type="Label" parent="Control/Doc/Settings/List/SetNonEnglish"]
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 200, 0 )
+text = "Show Non-English"
+
+[node name="CheckBox" type="CheckBox" parent="Control/Doc/Settings/List/SetNonEnglish"]
+margin_left = 204.0
+margin_right = 228.0
+margin_bottom = 27.0
+pressed = true
 
 [connection signal="gui_input" from="Control/Doc/Header" to="Control" method="header_gui_input"]
 [connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Minimize" to="Control" method="minimize_pressed"]
 [connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Fullscreen" to="Control" method="fullscreen_pressed"]
 [connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Shrink" to="Control" method="shrink_pressed"]
 [connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Exit" to="Control" method="exit_pressed"]
+[connection signal="pressed" from="Control/Doc/IndexBody/SideBar/Settings" to="Control" method="settings_pressed"]
+[connection signal="pressed" from="Control/Doc/CardsetBody/List/Back" to="Control" method="cardset_back_pressed"]
