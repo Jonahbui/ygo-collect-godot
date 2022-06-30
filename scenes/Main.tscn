@@ -1,14 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://fonts/roboto-medium-title.tres" type="DynamicFont" id=2]
-[ext_resource path="res://icons/expand.png" type="Texture" id=3]
 [ext_resource path="res://src/main.gd" type="Script" id=4]
-[ext_resource path="res://icons/reject.png" type="Texture" id=5]
-[ext_resource path="res://src/color_button.gd" type="Script" id=6]
-[ext_resource path="res://icons/minimize-sign.png" type="Texture" id=7]
-[ext_resource path="res://icons/shrink.png" type="Texture" id=8]
-[ext_resource path="res://src/card_set.gd" type="Script" id=9]
+[ext_resource path="res://src/card_display.gd" type="Script" id=9]
 [ext_resource path="res://images/sample.jpg" type="Texture" id=10]
 [ext_resource path="res://icon.png" type="Texture" id=11]
 [ext_resource path="res://fonts/roboto-medium-header1.tres" type="DynamicFont" id=12]
@@ -73,119 +68,22 @@ valign = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/Doc/Header/Margin/List"]
 margin_left = 251.0
-margin_right = 836.0
+margin_right = 992.0
 margin_bottom = 48.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="SysNav" type="HBoxContainer" parent="Control/Doc/Header/Margin/List"]
-margin_left = 840.0
-margin_right = 992.0
-margin_bottom = 48.0
-mouse_filter = 2
-size_flags_vertical = 3
-
-[node name="Minimize" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
-self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-script = ExtResource( 6 )
-
-[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Minimize"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 13.0
-margin_top = 13.0
-margin_right = 13.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 48, 48 )
-rect_scale = Vector2( 0.5, 0.5 )
-mouse_filter = 2
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 1
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Fullscreen" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
-self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
-margin_left = 52.0
-margin_right = 100.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-script = ExtResource( 6 )
-
-[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Fullscreen"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 13.0
-margin_top = 13.0
-margin_right = 13.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 48, 48 )
-rect_scale = Vector2( 0.5, 0.5 )
-mouse_filter = 2
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 1
-
-[node name="Shrink" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
-visible = false
-self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
-margin_left = 104.0
-margin_right = 152.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-script = ExtResource( 6 )
-
-[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Shrink"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 13.0
-margin_top = 13.0
-margin_right = 13.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 48, 48 )
-rect_scale = Vector2( 0.5, 0.5 )
-mouse_filter = 2
-texture = ExtResource( 8 )
-expand = true
-stretch_mode = 1
-
-[node name="Exit" type="ColorRect" parent="Control/Doc/Header/Margin/List/SysNav"]
-self_modulate = Color( 0.0745098, 0.0823529, 0.12549, 1 )
-margin_left = 104.0
-margin_right = 152.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-script = ExtResource( 6 )
-
-[node name="TextureRect3" type="TextureRect" parent="Control/Doc/Header/Margin/List/SysNav/Exit"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 13.0
-margin_top = 13.0
-margin_right = 13.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 48, 48 )
-rect_scale = Vector2( 0.5, 0.5 )
-mouse_filter = 2
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 1
-
 [node name="IndexBody" type="HBoxContainer" parent="Control/Doc"]
+visible = false
 margin_top = 64.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 332.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SideBar" type="ColorRect" parent="Control/Doc/IndexBody"]
 margin_right = 240.0
-margin_bottom = 536.0
+margin_bottom = 268.0
 rect_min_size = Vector2( 240, 0 )
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
@@ -202,7 +100,7 @@ custom_constants/margin_bottom = 16
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 224.0
-margin_bottom = 520.0
+margin_bottom = 459.0
 size_flags_vertical = 3
 custom_constants/separation = 1
 
@@ -373,7 +271,7 @@ stretch_mode = 5
 [node name="Body" type="MarginContainer" parent="Control/Doc/IndexBody"]
 margin_left = 244.0
 margin_right = 1024.0
-margin_bottom = 536.0
+margin_bottom = 268.0
 size_flags_horizontal = 3
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
@@ -384,7 +282,7 @@ custom_constants/margin_bottom = 16
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 764.0
-margin_bottom = 520.0
+margin_bottom = 252.0
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
 [node name="Table" type="VBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground"]
@@ -462,14 +360,14 @@ text = "Date"
 [node name="Margin" type="ScrollContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
 margin_top = 52.0
 margin_right = 716.0
-margin_bottom = 472.0
+margin_bottom = 204.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Body" type="VBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin"]
 margin_right = 716.0
-margin_bottom = 420.0
+margin_bottom = 152.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -538,9 +436,8 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "00/00/0000"
 
-[node name="CardsetBody" type="MarginContainer" parent="Control/Doc"]
-visible = false
-margin_top = 332.0
+[node name="CardDisplay" type="MarginContainer" parent="Control/Doc"]
+margin_top = 64.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -551,91 +448,90 @@ custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 script = ExtResource( 9 )
 
-[node name="HTTPRequest" type="HTTPRequest" parent="Control/Doc/CardsetBody"]
+[node name="HTTPRequest" type="HTTPRequest" parent="Control/Doc/CardDisplay"]
 
-[node name="List" type="VBoxContainer" parent="Control/Doc/CardsetBody"]
+[node name="List" type="VBoxContainer" parent="Control/Doc/CardDisplay"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 1008.0
-margin_bottom = 252.0
+margin_bottom = 520.0
 size_flags_horizontal = 3
 
-[node name="Back" type="Button" parent="Control/Doc/CardsetBody/List"]
+[node name="Back" type="Button" parent="Control/Doc/CardDisplay/List"]
 margin_right = 47.0
 margin_bottom = 25.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Back"
 
-[node name="SetName" type="Label" parent="Control/Doc/CardsetBody/List"]
+[node name="SetName" type="Label" parent="Control/Doc/CardDisplay/List"]
 margin_top = 29.0
 margin_right = 992.0
 margin_bottom = 48.0
 text = "Set Name"
 align = 1
 
-[node name="Info" type="HBoxContainer" parent="Control/Doc/CardsetBody/List"]
+[node name="Info" type="HBoxContainer" parent="Control/Doc/CardDisplay/List"]
 margin_top = 52.0
 margin_right = 992.0
 margin_bottom = 71.0
 alignment = 1
 
-[node name="TitleCollect" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="TitleCollect" type="Label" parent="Control/Doc/CardDisplay/List/Info"]
 margin_right = 75.0
 margin_bottom = 19.0
 text = "Collected: "
 align = 1
 
-[node name="Collect" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="Collect" type="Label" parent="Control/Doc/CardDisplay/List/Info"]
 margin_left = 79.0
 margin_right = 88.0
 margin_bottom = 19.0
 text = "0"
 align = 1
 
-[node name="Divisor" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="Divisor" type="Label" parent="Control/Doc/CardDisplay/List/Info"]
 margin_left = 92.0
 margin_right = 98.0
 margin_bottom = 19.0
 text = "/"
 align = 1
 
-[node name="CardsInSet" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="CardsInSet" type="Label" parent="Control/Doc/CardDisplay/List/Info"]
 margin_left = 102.0
 margin_right = 112.0
 margin_bottom = 19.0
 text = "X"
 align = 1
 
-[node name="VSeparator" type="VSeparator" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="VSeparator" type="VSeparator" parent="Control/Doc/CardDisplay/List/Info"]
 margin_left = 116.0
 margin_right = 869.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 12, 0 )
 size_flags_horizontal = 3
 
-[node name="CardQuantityTitle" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="CardQuantityTitle" type="Label" parent="Control/Doc/CardDisplay/List/Info"]
 margin_left = 873.0
 margin_right = 979.0
 margin_bottom = 19.0
 text = "Card Quantity: "
 align = 1
 
-[node name="CardQuantity" type="Label" parent="Control/Doc/CardsetBody/List/Info"]
+[node name="CardQuantity" type="Label" parent="Control/Doc/CardDisplay/List/Info"]
 margin_left = 983.0
 margin_right = 992.0
 margin_bottom = 19.0
 text = "0"
 align = 1
 
-[node name="HSeparator" type="HSeparator" parent="Control/Doc/CardsetBody/List"]
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/CardDisplay/List"]
 margin_top = 75.0
 margin_right = 992.0
 margin_bottom = 83.0
 rect_min_size = Vector2( 0, 8 )
 
-[node name="Scroll" type="ScrollContainer" parent="Control/Doc/CardsetBody/List"]
-visible = false
+[node name="Scroll" type="ScrollContainer" parent="Control/Doc/CardDisplay/List"]
 margin_top = 87.0
 margin_right = 992.0
 margin_bottom = 504.0
@@ -643,7 +539,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="Grid" type="GridContainer" parent="Control/Doc/CardsetBody/List/Scroll"]
+[node name="Grid" type="GridContainer" parent="Control/Doc/CardDisplay/List/Scroll"]
 margin_right = 992.0
 margin_bottom = 417.0
 size_flags_horizontal = 3
@@ -652,12 +548,13 @@ custom_constants/vseparation = 16
 custom_constants/hseparation = 35
 columns = 5
 
-[node name="Card" type="VBoxContainer" parent="Control/Doc/CardsetBody/List/Scroll/Grid"]
+[node name="Card" type="VBoxContainer" parent="Control/Doc/CardDisplay/List/Scroll/Grid"]
+visible = false
 margin_right = 165.0
 margin_bottom = 292.0
-rect_min_size = Vector2( 165, 240 )
+rect_min_size = Vector2( 165, 292 )
 
-[node name="Image" type="TextureButton" parent="Control/Doc/CardsetBody/List/Scroll/Grid/Card"]
+[node name="Image" type="TextureButton" parent="Control/Doc/CardDisplay/List/Scroll/Grid/Card"]
 margin_right = 165.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 164, 240 )
@@ -665,7 +562,7 @@ texture_normal = ExtResource( 10 )
 expand = true
 stretch_mode = 4
 
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardsetBody/List/Scroll/Grid/Card"]
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardDisplay/List/Scroll/Grid/Card"]
 margin_top = 244.0
 margin_right = 165.0
 margin_bottom = 292.0
@@ -772,9 +669,5 @@ margin_bottom = 27.0
 pressed = true
 
 [connection signal="gui_input" from="Control/Doc/Header" to="Control" method="header_gui_input"]
-[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Minimize" to="Control" method="minimize_pressed"]
-[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Fullscreen" to="Control" method="fullscreen_pressed"]
-[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Shrink" to="Control" method="shrink_pressed"]
-[connection signal="pressed" from="Control/Doc/Header/Margin/List/SysNav/Exit" to="Control" method="exit_pressed"]
 [connection signal="pressed" from="Control/Doc/IndexBody/SideBar/Settings" to="Control" method="settings_pressed"]
-[connection signal="pressed" from="Control/Doc/CardsetBody/List/Back" to="Control" method="cardset_back_pressed"]
+[connection signal="pressed" from="Control/Doc/CardDisplay/List/Back" to="Control" method="cardset_back_pressed"]
