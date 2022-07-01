@@ -97,7 +97,7 @@ func create_card_outlines(set:Set) -> void:
     for i in range (0, set.num_of_cards - self.card_outlines.size()):
       var new_card = card_template.duplicate()
       grid.call_deferred("add_child", new_card)
-      self.cards.append(new_card)
+      self.card_outlines.append(new_card)
   
   # Less cards than card outlines
   elif set.num_of_cards < self.card_outlines.size():

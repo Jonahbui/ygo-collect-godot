@@ -49,6 +49,7 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
     var card_sets = parse.result
     card_sets.sort_custom(Main, "sort_by_date_desc")
     
+    var set_found := true if Info.meta.last_set_created == "" else false
     for set in card_sets:
       var set_name = set.set_name
       set_name = clean(set_name)
@@ -68,14 +69,14 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
       # Generate a new set
       else:
         # Restore checkpoint
-        if not Info.meta.last_set_created.empty():
+        if not Info.meta.last_set_created == "" and not set_found:
           if Info.meta.last_set_created != set.set_name:
             continue
           else:
-            Info.meta.last_set_created = ""
-          
+            set_found = true
+
         # Create set resource
-        var new_set : Set = SET.new()
+        var new_set := SET.new()
         new_set.set_name = set.set_name
         new_set.set_code = set.set_code
         new_set.num_of_cards = set.num_of_cards
@@ -85,7 +86,15 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
         ResourceSaver.save(set_path, new_set, ResourceSaver.FLAG_CHANGE_PATH)
         Info.meta.last_set_created = set.set_name
         save_meta()
-    # TODO: create a default "unknown" set
+
+    # Create default set
+    var default_set := SET.new()
+    default_set.set_name = Set.DEFAULT_SET_NAME
+    default_set.set_code = Set.DEFAULT_SET_CODE
+    default_set.num_of_cards = Set.DEfAULT_NUM_CARDS
+    default_set.tcg_date = ""
+    Info.sets.append(default_set)
+    ResourceSaver.save("%s/%s.tres" % [SETS_PATH, default_set.set_name], default_set, ResourceSaver.FLAG_CHANGE_PATH)
     
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.SET_RESOURCES_NEED_UPDATE, false)
     Info.meta.last_set_created = ""
@@ -96,12 +105,20 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
       Info.sets.append(ResourceLoader.load(set_path, "Resource", true))
   
   # Generate card resources
+  var card_found := true if Info.meta.last_card_created == -1 else false
   if Bitmask.is_flag_set(Info.meta.mask, Meta.CARD_RESOURCES_NEED_UPDATE):
     var parse = Parse.read_json(card_info_path)
     if not parse:
       return ERR_FILE_CANT_READ
     var card_info = parse.result.data
     for card in card_info:
+      # Restore checkpoint
+      if Info.meta.last_card_created != -1 and not card_found:
+        if Info.meta.last_card_created != card.id:
+          continue
+        else:
+          card_found = false
+          
       var card_path = "%s/%s.tres" % [CARDS_PATH, card.id]
       
       # Load an existing card, but update its info
@@ -126,13 +143,6 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
 
       # Generate a new card
       else:
-        # Restore checkpoint
-        if Info.meta.last_card_created != -1:
-          if Info.meta.last_card_created != card.id:
-            continue
-          else:
-            Info.meta.last_card_created = -1
-        
         # Create new card resource
         var new_card : Card = CARD.new()
         new_card.id = card.id
@@ -148,13 +158,13 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
             card_set["first_editions"] = 0
             card_set["reprints"] = 0
         else:
-          card["card_sets"] = {
+          card["card_sets"] = [{
             "set_name": Set.DEFAULT_SET_NAME,
             "set_code": Set.DEFAULT_SET_CODE,
             "set_price": "?",
             "set_rarity": "Unknown",
             "set_rarity_code": "(?)",
-          }
+          }]
           new_card.card_sets = card.card_sets
         new_card.card_images = card.card_images
         if card.has("card_prices"):
@@ -181,9 +191,7 @@ func save_meta() -> void:
 
 # : / \ ? * " | % < >
 static func clean(filename:String) -> String:
-  return filename.replace(':','').replace('/', '').replace('\\', '').replace('?', '') \
-  .replace('*', '').replace('\"', '').replace('|', '').replace('%%', '').replace('<', '')
-  .replace('>', '').replace(' ', ''). replace('-', '')
+  return filename.replace(':','').replace('/', '').replace('\\', '').replace('?', '').replace('*', '').replace('\"', '').replace('|', '').replace('%%', '').replace('<', '').replace('>', '').replace(' ', ''). replace('-', '')
 
 
 static func get_files_in_dir(dir_path:String, full_path:bool=true) -> Array:
