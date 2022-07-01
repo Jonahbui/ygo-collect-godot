@@ -7,11 +7,15 @@ var start_pos := Vector2.ZERO
 export(NodePath) var _row
 onready var row = get_node(_row)
 
-var current_set : String = ""
-
 func _ready() -> void:
   Info.sets.sort_custom(Info, "sort_set_by_date_desc")
   form_cardsets(Info.sets)
+  
+#  $Doc/Index.show()
+#  $Doc/CardDisplay.hide()
+#  $Doc/CardDisplay/List.show()
+#  $Doc/CardDisplay/FullView.hide()
+#  $Doc/Settings.hide()
 
 
 func form_cardsets(sets:Array) -> void:
@@ -45,30 +49,13 @@ func header_gui_input(event:InputEvent) -> void:
 
 
 func cardset_pressed(selected_set_name:String) -> void:
-  # Find and update the current card set being viewed
-  var selected_cardset : Set 
-  for set in Info.sets:
-    if set.set_name == selected_set_name:
-      selected_cardset = set
-      break
-  current_set = selected_set_name
-
-  # Find the cards for that selected set
-  $Doc/CardDisplay.show()
-  $Doc/IndexBody.hide()
-  print("Processing cards for set %s" % [selected_set_name])
-  var cards_in_set := []
-  for card in Info.cards:
-    # The sets that the card could be in
-    for card_set in card.card_sets:
-      if card_set.set_name == selected_set_name:
-        cards_in_set.append(card)
-  $Doc/CardDisplay.form_set(selected_cardset, cards_in_set)
+  $Doc/CardDisplay.form_set(selected_set_name)
+  $Doc/Index.hide()
 
 
 func cardset_back_pressed() -> void:
   $Doc/CardDisplay.hide()
-  $Doc/IndexBody.show()
+  $Doc/Index.show()
 
 
 func settings_pressed():

@@ -20,11 +20,16 @@ _global_script_classes=[ {
 "path": "res://src/card.gd"
 }, {
 "base": "Control",
+"class": "CardOutline",
+"language": "GDScript",
+"path": "res://src/card_outline.gd"
+}, {
+"base": "Control",
 "class": "CardSet",
 "language": "GDScript",
 "path": "res://src/card_display.gd"
 }, {
-"base": "ColorRect",
+"base": "Panel",
 "class": "ColorButton",
 "language": "GDScript",
 "path": "res://src/color_button.gd"
@@ -62,6 +67,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bitmask": "",
 "Card": "",
+"CardOutline": "",
 "CardSet": "",
 "ColorButton": "",
 "Externals": "",
@@ -85,6 +91,10 @@ Info="*res://src/info.gd"
 [display]
 
 window/dpi/allow_hidpi=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 

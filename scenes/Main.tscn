@@ -1,12 +1,81 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://fonts/roboto-medium-title.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/card_outline.gd" type="Script" id=3]
 [ext_resource path="res://src/main.gd" type="Script" id=4]
+[ext_resource path="res://images/default.jpg" type="Texture" id=5]
+[ext_resource path="res://src/shaders/grayscale.gdshader" type="Shader" id=6]
+[ext_resource path="res://src/color_button.gd" type="Script" id=7]
+[ext_resource path="res://src/shaders/blur.gdshader" type="Shader" id=8]
 [ext_resource path="res://src/card_display.gd" type="Script" id=9]
-[ext_resource path="res://images/sample.jpg" type="Texture" id=10]
 [ext_resource path="res://icon.png" type="Texture" id=11]
 [ext_resource path="res://fonts/roboto-medium-header1.tres" type="DynamicFont" id=12]
+
+[sub_resource type="Animation" id=1]
+resource_name = "zoom_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.05, 1.05 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "zoom_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.05, 1.05 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 6 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 8 )
+shader_param/blur_amount = null
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 0.588235, 0.588235, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.686275, 1, 0.588235, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 0.588235, 0.588235, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.686275, 1, 0.588235, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Main" type="CanvasLayer"]
 
@@ -15,7 +84,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
-_row = NodePath("Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row")
+_row = NodePath("Doc/Index/Body/TableBackground/Table/Margin/Body/Row")
 
 [node name="Background" type="ColorRect" parent="Control"]
 anchor_right = 1.0
@@ -73,21 +142,21 @@ margin_bottom = 48.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="IndexBody" type="HBoxContainer" parent="Control/Doc"]
+[node name="Index" type="HBoxContainer" parent="Control/Doc"]
 visible = false
 margin_top = 64.0
 margin_right = 1024.0
-margin_bottom = 332.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SideBar" type="ColorRect" parent="Control/Doc/IndexBody"]
+[node name="SideBar" type="ColorRect" parent="Control/Doc/Index"]
 margin_right = 240.0
-margin_bottom = 268.0
+margin_bottom = 536.0
 rect_min_size = Vector2( 240, 0 )
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
-[node name="Margin" type="MarginContainer" parent="Control/Doc/IndexBody/SideBar"]
+[node name="Margin" type="MarginContainer" parent="Control/Doc/Index/SideBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 3
@@ -96,58 +165,58 @@ custom_constants/margin_top = 16
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
-[node name="List" type="VBoxContainer" parent="Control/Doc/IndexBody/SideBar/Margin"]
+[node name="List" type="VBoxContainer" parent="Control/Doc/Index/SideBar/Margin"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 224.0
-margin_bottom = 459.0
+margin_bottom = 520.0
 size_flags_vertical = 3
 custom_constants/separation = 1
 
-[node name="HSeparator" type="HSeparator" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_right = 208.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 12, 36 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 37.0
 margin_right = 208.0
 margin_bottom = 56.0
 
-[node name="Label" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer2"]
+[node name="Label" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer2"]
 margin_right = 118.0
 margin_bottom = 19.0
 text = "Sets Completed "
 
-[node name="Label2" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer2"]
+[node name="Label2" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer2"]
 margin_left = 122.0
 margin_right = 131.0
 margin_bottom = 19.0
 text = "0"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 57.0
 margin_right = 208.0
 margin_bottom = 76.0
 
-[node name="Label" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer"]
+[node name="Label" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer"]
 margin_right = 137.0
 margin_bottom = 19.0
 text = "Overall Completion"
 
-[node name="Label2" type="Label" parent="Control/Doc/IndexBody/SideBar/Margin/List/HBoxContainer"]
+[node name="Label2" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer"]
 margin_left = 141.0
 margin_right = 162.0
 margin_bottom = 19.0
 text = "0%"
 
-[node name="HSeparator2" type="HSeparator" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="HSeparator2" type="HSeparator" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 77.0
 margin_right = 208.0
 margin_bottom = 113.0
 rect_min_size = Vector2( 12, 36 )
 
-[node name="All" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="All" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 114.0
 margin_right = 208.0
 margin_bottom = 146.0
@@ -158,7 +227,7 @@ text = "All"
 flat = true
 align = 0
 
-[node name="Normal_Effects" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Normal_Effects" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 147.0
 margin_right = 208.0
 margin_bottom = 179.0
@@ -169,7 +238,7 @@ text = "Normals & Effects"
 flat = true
 align = 0
 
-[node name="Rituals" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Rituals" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 180.0
 margin_right = 208.0
 margin_bottom = 212.0
@@ -180,7 +249,7 @@ text = "Rituals"
 flat = true
 align = 0
 
-[node name="Fusions" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Fusions" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 213.0
 margin_right = 208.0
 margin_bottom = 245.0
@@ -191,7 +260,7 @@ text = "Fusions"
 flat = true
 align = 0
 
-[node name="Synchros" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Synchros" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 246.0
 margin_right = 208.0
 margin_bottom = 278.0
@@ -202,7 +271,7 @@ text = "Synchros"
 flat = true
 align = 0
 
-[node name="XYZs" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="XYZs" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 279.0
 margin_right = 208.0
 margin_bottom = 311.0
@@ -213,7 +282,7 @@ text = "XYZs"
 flat = true
 align = 0
 
-[node name="Pendelums" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Pendelums" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 312.0
 margin_right = 208.0
 margin_bottom = 344.0
@@ -224,7 +293,7 @@ text = "Pendelums"
 flat = true
 align = 0
 
-[node name="Links" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Links" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 345.0
 margin_right = 208.0
 margin_bottom = 377.0
@@ -235,7 +304,7 @@ text = "Links"
 flat = true
 align = 0
 
-[node name="Spells" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Spells" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 378.0
 margin_right = 208.0
 margin_bottom = 410.0
@@ -246,7 +315,7 @@ text = "Spells"
 flat = true
 align = 0
 
-[node name="Traps" type="Button" parent="Control/Doc/IndexBody/SideBar/Margin/List"]
+[node name="Traps" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
 margin_top = 411.0
 margin_right = 208.0
 margin_bottom = 443.0
@@ -257,7 +326,7 @@ text = "Traps"
 flat = true
 align = 0
 
-[node name="Settings" type="TextureButton" parent="Control/Doc/IndexBody/SideBar"]
+[node name="Settings" type="TextureButton" parent="Control/Doc/Index/SideBar"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 9.0
@@ -268,24 +337,24 @@ texture_normal = ExtResource( 11 )
 expand = true
 stretch_mode = 5
 
-[node name="Body" type="MarginContainer" parent="Control/Doc/IndexBody"]
+[node name="Body" type="MarginContainer" parent="Control/Doc/Index"]
 margin_left = 244.0
 margin_right = 1024.0
-margin_bottom = 268.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 
-[node name="TableBackground" type="ColorRect" parent="Control/Doc/IndexBody/Body"]
+[node name="TableBackground" type="ColorRect" parent="Control/Doc/Index/Body"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 764.0
-margin_bottom = 252.0
+margin_bottom = 520.0
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
-[node name="Table" type="VBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground"]
+[node name="Table" type="VBoxContainer" parent="Control/Doc/Index/Body/TableBackground"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
@@ -293,25 +362,26 @@ margin_top = 16.0
 margin_right = -16.0
 margin_bottom = -16.0
 
-[node name="Title" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
+[node name="Title" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table"]
 margin_right = 716.0
 margin_bottom = 19.0
 text = "Sets"
 
-[node name="Header" type="Button" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
+[node name="Header" type="Button" parent="Control/Doc/Index/Body/TableBackground/Table"]
 margin_top = 23.0
 margin_right = 716.0
 margin_bottom = 48.0
+mouse_filter = 1
 size_flags_horizontal = 3
 disabled = true
 flat = true
 
-[node name="ColorRect" type="ColorRect" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header"]
+[node name="ColorRect" type="ColorRect" parent="Control/Doc/Index/Body/TableBackground/Table/Header"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.176471, 0.188235, 0.258824, 1 )
 
-[node name="Data" type="HBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header"]
+[node name="Data" type="HBoxContainer" parent="Control/Doc/Index/Body/TableBackground/Table/Header"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -319,14 +389,14 @@ margin_right = -12.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Name" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
+[node name="Name" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Header/Data"]
 margin_top = 3.0
 margin_right = 384.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Name"
 
-[node name="Code" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
+[node name="Code" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Header/Data"]
 margin_left = 388.0
 margin_top = 3.0
 margin_right = 438.0
@@ -334,7 +404,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 text = "Code"
 
-[node name="Collected" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
+[node name="Collected" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Header/Data"]
 margin_left = 442.0
 margin_top = 3.0
 margin_right = 542.0
@@ -342,14 +412,14 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "Collected"
 
-[node name="Percentage" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
+[node name="Percentage" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Header/Data"]
 margin_left = 546.0
 margin_top = 3.0
 margin_right = 596.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="ReleaseDate" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Header/Data"]
+[node name="ReleaseDate" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Header/Data"]
 margin_left = 600.0
 margin_top = 3.0
 margin_right = 700.0
@@ -357,38 +427,39 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "Date"
 
-[node name="Margin" type="ScrollContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table"]
+[node name="Margin" type="ScrollContainer" parent="Control/Doc/Index/Body/TableBackground/Table"]
 margin_top = 52.0
 margin_right = 716.0
-margin_bottom = 204.0
+margin_bottom = 472.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="Body" type="VBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin"]
+[node name="Body" type="VBoxContainer" parent="Control/Doc/Index/Body/TableBackground/Table/Margin"]
 margin_right = 716.0
-margin_bottom = 152.0
+margin_bottom = 420.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Row" type="Button" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body"]
+[node name="Row" type="Button" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body"]
 visible = false
 margin_right = 716.0
 margin_bottom = 25.0
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 flat = true
 clip_text = true
 align = 0
 
-[node name="ColorRect" type="ColorRect" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row"]
+[node name="ColorRect" type="ColorRect" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.176471, 0.188235, 0.258824, 1 )
 
-[node name="Data" type="HBoxContainer" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row"]
+[node name="Data" type="HBoxContainer" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -396,7 +467,7 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Name" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
+[node name="Name" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_top = 3.0
 margin_right = 380.0
 margin_bottom = 22.0
@@ -404,7 +475,7 @@ size_flags_horizontal = 3
 text = "01234567890123456789012345678901234567890"
 clip_text = true
 
-[node name="Code" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
+[node name="Code" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 400.0
 margin_top = 3.0
 margin_right = 450.0
@@ -412,7 +483,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 text = "XXXX"
 
-[node name="Collected" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
+[node name="Collected" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 454.0
 margin_top = 3.0
 margin_right = 554.0
@@ -420,7 +491,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "000/000"
 
-[node name="Percentage" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
+[node name="Percentage" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 558.0
 margin_top = 3.0
 margin_right = 608.0
@@ -428,7 +499,7 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 50, 0 )
 text = "100%"
 
-[node name="ReleaseDate" type="Label" parent="Control/Doc/IndexBody/Body/TableBackground/Table/Margin/Body/Row/Data"]
+[node name="ReleaseDate" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row/Data"]
 margin_left = 612.0
 margin_top = 3.0
 margin_right = 712.0
@@ -447,8 +518,6 @@ custom_constants/margin_top = 16
 custom_constants/margin_left = 16
 custom_constants/margin_bottom = 16
 script = ExtResource( 9 )
-
-[node name="HTTPRequest" type="HTTPRequest" parent="Control/Doc/CardDisplay"]
 
 [node name="List" type="VBoxContainer" parent="Control/Doc/CardDisplay"]
 margin_left = 16.0
@@ -539,41 +608,293 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="Grid" type="GridContainer" parent="Control/Doc/CardDisplay/List/Scroll"]
+[node name="Margin" type="MarginContainer" parent="Control/Doc/CardDisplay/List/Scroll"]
 margin_right = 992.0
 margin_bottom = 417.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 8
+custom_constants/margin_top = 16
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 16
+
+[node name="Grid" type="GridContainer" parent="Control/Doc/CardDisplay/List/Scroll/Margin"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 984.0
+margin_bottom = 401.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
 custom_constants/hseparation = 35
 columns = 5
 
-[node name="Card" type="VBoxContainer" parent="Control/Doc/CardDisplay/List/Scroll/Grid"]
+[node name="Card" type="VBoxContainer" parent="Control/Doc/CardDisplay/List/Scroll/Margin/Grid"]
 visible = false
 margin_right = 165.0
 margin_bottom = 292.0
 rect_min_size = Vector2( 165, 292 )
+rect_pivot_offset = Vector2( 82, 146 )
+mouse_filter = 2
+script = ExtResource( 3 )
 
-[node name="Image" type="TextureButton" parent="Control/Doc/CardDisplay/List/Scroll/Grid/Card"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Doc/CardDisplay/List/Scroll/Margin/Grid/Card"]
+anims/zoom_in = SubResource( 1 )
+anims/zoom_out = SubResource( 2 )
+
+[node name="Image" type="TextureButton" parent="Control/Doc/CardDisplay/List/Scroll/Margin/Grid/Card"]
+material = SubResource( 3 )
 margin_right = 165.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 164, 240 )
-texture_normal = ExtResource( 10 )
+rect_pivot_offset = Vector2( 82, 120 )
+mouse_filter = 1
+texture_normal = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 
-[node name="Name" type="RichTextLabel" parent="Control/Doc/CardDisplay/List/Scroll/Grid/Card"]
+[node name="Rarity" type="RichTextLabel" parent="Control/Doc/CardDisplay/List/Scroll/Margin/Grid/Card/Image"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 40.0
+margin_bottom = 40.0
+fit_content_height = true
+scroll_active = false
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardDisplay/List/Scroll/Margin/Grid/Card"]
 margin_top = 244.0
 margin_right = 165.0
 margin_bottom = 292.0
 rect_min_size = Vector2( 0, 48 )
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Sample Card"
 
+[node name="FullView" type="MarginContainer" parent="Control/Doc/CardDisplay"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 520.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = -16
+custom_constants/margin_top = -16
+custom_constants/margin_left = -16
+custom_constants/margin_bottom = -16
+
+[node name="BackgroundBlur" type="ColorRect" parent="Control/Doc/CardDisplay/FullView"]
+material = SubResource( 4 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 1008.0
+margin_bottom = 520.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.215686, 0.215686, 0.215686, 1 )
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Control/Doc/CardDisplay/FullView"]
+
+[node name="Margin" type="MarginContainer" parent="Control/Doc/CardDisplay/FullView"]
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 1008.0
+margin_bottom = 520.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+
+[node name="Control" type="Control" parent="Control/Doc/CardDisplay/FullView/Margin"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 520.0
+
+[node name="Image" type="TextureRect" parent="Control/Doc/CardDisplay/FullView/Margin/Control"]
+anchor_right = 0.349
+anchor_bottom = 1.0
+margin_right = -0.208008
+rect_min_size = Vector2( 346, 472 )
+rect_pivot_offset = Vector2( 130, 189 )
+size_flags_vertical = 13
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="Control/Doc/CardDisplay/FullView/Margin/Control"]
+anchor_left = 0.349
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 9.79199
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="List" type="HBoxContainer" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_right = 636.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+
+[node name="Name" type="RichTextLabel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/List"]
+margin_right = 600.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+custom_fonts/normal_font = ExtResource( 12 )
+text = "Name"
+fit_content_height = true
+scroll_active = false
+
+[node name="Rarity" type="Label" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/List"]
+margin_left = 604.0
+margin_top = 5.0
+margin_right = 636.0
+margin_bottom = 24.0
+text = "(XX)"
+
+[node name="HSeparator" type="HSeparator" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_top = 33.0
+margin_right = 636.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="Desc" type="RichTextLabel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_top = 45.0
+margin_right = 636.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 0, 24 )
+text = "Description"
+fit_content_height = true
+scroll_active = false
+
+[node name="HSeparator2" type="HSeparator" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_top = 73.0
+margin_right = 636.0
+margin_bottom = 420.0
+rect_min_size = Vector2( 0, 8 )
+size_flags_vertical = 3
+
+[node name="First" type="HBoxContainer" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_top = 424.0
+margin_right = 636.0
+margin_bottom = 456.0
+
+[node name="Label" type="Label" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First"]
+margin_top = 6.0
+margin_right = 100.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 100, 0 )
+text = "1st Editions"
+
+[node name="Amount" type="LineEdit" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First"]
+margin_left = 104.0
+margin_right = 162.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 48, 0 )
+align = 1
+max_length = 3
+placeholder_text = "Amt"
+
+[node name="Decrement" type="Panel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First"]
+margin_left = 166.0
+margin_right = 198.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+rect_clip_content = true
+custom_styles/panel = SubResource( 6 )
+script = ExtResource( 7 )
+color_hover = Color( 1, 0.721569, 0.721569, 1 )
+color_pressed = Color( 1, 0.458824, 0.458824, 1 )
+color_selected = Color( 0.85098, 0.568627, 0.568627, 1 )
+color_disabled = Color( 0.188235, 0.121569, 0.121569, 1 )
+color_default = Color( 1, 0.588235, 0.588235, 1 )
+
+[node name="Increment" type="Panel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First"]
+margin_left = 202.0
+margin_right = 234.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+rect_clip_content = true
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 7 )
+color_hover = Color( 0.733333, 1, 0.65098, 1 )
+color_pressed = Color( 0.447059, 0.65098, 0.384314, 1 )
+color_selected = Color( 0.643137, 0.788235, 0.6, 1 )
+color_disabled = Color( 0.141176, 0.184314, 0.129412, 1 )
+color_default = Color( 0.686275, 1, 0.588235, 1 )
+
+[node name="HSeparator3" type="HSeparator" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_top = 460.0
+margin_right = 636.0
+margin_bottom = 468.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="Reprint" type="HBoxContainer" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
+margin_top = 472.0
+margin_right = 636.0
+margin_bottom = 504.0
+
+[node name="Label" type="Label" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint"]
+margin_top = 6.0
+margin_right = 100.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 100, 0 )
+text = "Reprints"
+
+[node name="Amount" type="LineEdit" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint"]
+margin_left = 104.0
+margin_right = 162.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 48, 0 )
+align = 1
+max_length = 3
+placeholder_text = "Amt"
+
+[node name="Decrement" type="Panel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint"]
+margin_left = 166.0
+margin_right = 198.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+rect_clip_content = true
+custom_styles/panel = SubResource( 7 )
+script = ExtResource( 7 )
+color_hover = Color( 1, 0.588235, 0.588235, 1 )
+color_pressed = Color( 1, 0.458824, 0.458824, 1 )
+color_selected = Color( 0.85098, 0.568627, 0.568627, 1 )
+color_disabled = Color( 0.188235, 0.121569, 0.121569, 1 )
+color_default = Color( 1, 0.588235, 0.588235, 1 )
+
+[node name="Increment" type="Panel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint"]
+margin_left = 202.0
+margin_right = 234.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+rect_clip_content = true
+custom_styles/panel = SubResource( 8 )
+script = ExtResource( 7 )
+color_hover = Color( 0.733333, 1, 0.65098, 1 )
+color_pressed = Color( 0.447059, 0.65098, 0.384314, 1 )
+color_selected = Color( 0.643137, 0.788235, 0.6, 1 )
+color_disabled = Color( 0.141176, 0.184314, 0.129412, 1 )
+color_default = Color( 0.686275, 1, 0.588235, 1 )
+
+[node name="VSeparator" type="VSeparator" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint"]
+margin_left = 238.0
+margin_right = 585.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+
+[node name="Back" type="Button" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint"]
+margin_left = 589.0
+margin_right = 636.0
+margin_bottom = 32.0
+text = "Back"
+
 [node name="Settings" type="MarginContainer" parent="Control/Doc"]
 visible = false
-margin_top = 64.0
+margin_top = 332.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -587,7 +908,7 @@ custom_constants/margin_bottom = 16
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 1008.0
-margin_bottom = 520.0
+margin_bottom = 252.0
 
 [node name="TitleSet" type="Label" parent="Control/Doc/Settings/List"]
 margin_right = 992.0
@@ -669,5 +990,12 @@ margin_bottom = 27.0
 pressed = true
 
 [connection signal="gui_input" from="Control/Doc/Header" to="Control" method="header_gui_input"]
-[connection signal="pressed" from="Control/Doc/IndexBody/SideBar/Settings" to="Control" method="settings_pressed"]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Settings" to="Control" method="settings_pressed"]
 [connection signal="pressed" from="Control/Doc/CardDisplay/List/Back" to="Control" method="cardset_back_pressed"]
+[connection signal="text_changed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First/Amount" to="Control/Doc/CardDisplay" method="_quantity_first_editions_changed"]
+[connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First/Decrement" to="Control/Doc/CardDisplay" method="_decrement_first_editions"]
+[connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First/Increment" to="Control/Doc/CardDisplay" method="_increment_first_editions"]
+[connection signal="text_changed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint/Amount" to="Control/Doc/CardDisplay" method="_quantity_reprint_editions_changed"]
+[connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint/Decrement" to="Control/Doc/CardDisplay" method="_decrement_reprint_editions"]
+[connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint/Increment" to="Control/Doc/CardDisplay" method="_increment_reprint_editions"]
+[connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/Reprint/Back" to="Control/Doc/CardDisplay" method="_back_pressed"]

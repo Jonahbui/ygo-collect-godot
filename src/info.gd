@@ -33,6 +33,12 @@ func _exit_tree():
   save_meta()
 
 
+func get_set_by_name(set_name:String):
+  for set in sets:
+    if set.set_name == set_name:
+      return set
+  return null
+
 func generate_resources(card_sets_path:String, card_info_path:String) -> int:
   if Bitmask.is_flag_set(Info.meta.mask, Meta.SET_RESOURCES_NEED_UPDATE):
     var parse = Parse.read_json(card_sets_path)
@@ -67,6 +73,7 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.SET_RESOURCES_NEED_UPDATE, false)
     save_meta()
   else:
+    print("Loading set resources from local.")
     for set_path in get_files_in_dir(SETS_PATH, true):
       Info.sets.append(ResourceLoader.load(set_path, "Resource", true))
   
@@ -98,6 +105,17 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
           new_card.archetype = card.archetype
         # TODO: figure out how to display cards that do not belong to a set
         if card.has("card_sets"):
+          for card_set in card.card_sets:
+            card_set["first_editions"] = 0
+            card_set["reprints"] = 0
+        else:
+          card["card_sets"] = {
+            "set_name": "Unknown",
+            "set_code": "UNKN",
+            "set_price": "?",
+            "set_rarity": "Unknown",
+            "set_rarity_code": "(?)",
+          }
           new_card.card_sets = card.card_sets
         new_card.card_images = card.card_images
         if card.has("card_prices"):
@@ -107,6 +125,7 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.CARD_RESOURCES_NEED_UPDATE, false)
     save_meta()
   else:
+    print("Loading card resources from local.")
     for card_path in get_files_in_dir(CARDS_PATH, true):
       Info.cards.append(ResourceLoader.load(card_path, "Resource", true))
 
