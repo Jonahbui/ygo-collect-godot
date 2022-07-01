@@ -10,13 +10,13 @@ onready var card_template = $List/Scroll/Margin/Grid/Card
 var card_outlines := []
 
 var set: Set
-var current_card := { "id": -1, "set_rarity_code": ""}
+var current_card := { "id": -1, "set_rarity_code": "", "outline": null}
 
 
 func _ready() -> void:
   get_tree().connect("screen_resized", self, "_window_size_changed")
 
-
+# TODO: sort card by setcode
 func form_set(selected_set_name:String) -> void: 
   # Get the set being displayed
   self.set = Info.get_set_by_name(selected_set_name)
@@ -43,13 +43,16 @@ func form_set(selected_set_name:String) -> void:
         # Allow users to interact with card
         if card_outline.card_image.is_connected("pressed", self, "_card_pressed"):
           card_outline.card_image.disconnect("pressed", self, "_card_pressed")
-        card_outline.card_image.connect("pressed", self, "_card_pressed", [card.id, card_set.set_rarity_code])
+        card_outline.card_image.connect("pressed", self, "_card_pressed", [card_outline, card.id, card_set.set_rarity_code])
         
         # TODO: actually pull numbers for the number of cards collected
-        var total_quantity := 0
+        var total_quantity : int = card_set.first_editions + card_set.reprints
         
         # Display card image
-        card_outline.card_image.texture_normal = get_card_texture(card.id)
+        var texture = get_card_texture(card.id)
+        if texture is GDScriptFunctionState:
+          texture = yield(texture, "completed")
+        card_outline.card_image.texture_normal = texture
         # Display card status
         card_outline.card_image.material = ShaderMaterial.new()
         if total_quantity == 0:
@@ -61,7 +64,8 @@ func form_set(selected_set_name:String) -> void:
         
         card_outline.show()
         i += 1
-
+        break
+  file.close()
   self.show()
 
 func get_card_texture(card_id) -> Texture:
@@ -70,15 +74,19 @@ func get_card_texture(card_id) -> Texture:
   var image_path = "%s/%s.jpg" % [Externals.CARD_IMAGES_PATH, card_id]
   if not file.file_exists(image_path):
     var image_url = "%s/%s.jpg" % [Externals.IMAGE_DB_URL, card_id]
+    print("Downloading external image @ %s" % image_url)
     $HTTPRequest.set_download_file(image_path)
     $HTTPRequest.request(image_url)
     var result = yield($HTTPRequest, "request_completed")
       
-    if result[1] != OK:
+    if result[0] != HTTPRequest.Result.RESULT_SUCCESS:
       # TODO: return a default picture
-      print("Error.")
+      print("Error. Could not download image. Result: %d. Return Code: %d" % [result[0], result[1]])
       return DEF_CARD_IMAGE
-
+  else:
+    print("Loading external image @ %s" % image_path)
+    
+  file.close()
   var error = image.load(image_path)
   if error != OK:
     # TODO: load a default picture
@@ -94,7 +102,7 @@ func get_card_texture(card_id) -> Texture:
 func create_card_outlines(set:Set) -> void:
   # More cards than card outlines
   if set.num_of_cards > self.card_outlines.size():
-    for i in range (0, set.num_of_cards - self.card_outlines.size()):
+    for _i in range (0, set.num_of_cards - self.card_outlines.size()):
       var new_card = card_template.duplicate()
       grid.call_deferred("add_child", new_card)
       self.card_outlines.append(new_card)
@@ -111,34 +119,108 @@ func create_card_outlines(set:Set) -> void:
 
 
 func _increment_first_editions():
-  # TODO: add first_editions to card_set for every cards' card_set
   for card in Info.cards:
     if card.id == current_card.id:
       for card_set in card.card_sets:
-        if card_set.name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
-          card_set.first_editions += 1
+        if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
+          card_set.reprints = int(clamp(card_set.first_editions + 1, 0 , 999))
+
+          # Update UI to reflect new amount
+          $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.first_editions
+          var total_quantity : int = card_set.first_editions + card_set.reprints
+          if total_quantity > 0:
+            current_card.outline.card_image.material.shader = null
+          Info.save_card(card)
 
 
 func _increment_reprint_editions():
-  pass
+  for card in Info.cards:
+    if card.id == current_card.id:
+      for card_set in card.card_sets:
+        if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
+          card_set.reprints = int(clamp(card_set.reprints + 1, 0 , 999))
+
+          # Update UI to reflect new amount
+          $FullView/Margin/Control/Info/Reprint/Amount.text = "%d" % card_set.reprints
+          var total_quantity : int = card_set.first_editions + card_set.reprints
+          if total_quantity > 0:
+            current_card.outline.card_image.material.shader = null
+          Info.save_card(card)
 
 
 func _decrement_first_editions():
-  pass
+  for card in Info.cards:
+    if card.id == current_card.id:
+      for card_set in card.card_sets:
+        if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
+          card_set.reprints = int(clamp(card_set.first_editions - 1, 0 , 999))
+          
+          # Update UI to reflect new amount
+          $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.first_editions
+          var total_quantity : int = card_set.first_editions + card_set.reprints
+          if total_quantity == 0:
+            current_card.outline.card_image.material.shader = SHDR_GRAYSCALE
+          Info.save_card(card)
 
 
 func _decrement_reprint_editions():
-  pass
+  for card in Info.cards:
+    if card.id == current_card.id:
+      for card_set in card.card_sets:
+        if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
+          card_set.reprints = int(clamp(card_set.reprints - 1, 0 , 999))
+
+          # Update UI to reflect new amount
+          $FullView/Margin/Control/Info/Reprint/Amount.text = "%d" % card_set.reprints
+          var total_quantity : int = card_set.first_editions + card_set.reprints
+          if total_quantity == 0:
+            current_card.outline.card_image.material.shader = SHDR_GRAYSCALE
+          Info.save_card(card)
 
 
 func _quantity_first_editions_changed(quantity:String):
   if not quantity.is_valid_integer():
     return
+  var parse : int = quantity.to_int()
+  
+  for card in Info.cards:
+    if card.id == current_card.id:
+      for card_set in card.card_sets:
+        if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
+          card_set.first_editions = int(clamp(parse, 0, 999))
+          if card_set.first_editions == 0:
+            $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.first_editions
+            
+          
+          # Update UI to reflect new amount
+          var total_quantity : int = card_set.first_editions + card_set.first_editions
+          if total_quantity == 0:
+            current_card.outline.card_image.material.shader = SHDR_GRAYSCALE
+          else:
+            current_card.outline.card_image.material.shader = null
+          Info.save_card(card)
 
 
 func _quantity_reprint_editions_changed(quantity:String):
   if not quantity.is_valid_integer():
     return
+  var parse : int = quantity.to_int()
+
+  for card in Info.cards:
+    if card.id == current_card.id:
+      for card_set in card.card_sets:
+        if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
+          card_set.reprints = int(clamp(parse, 0, 999))
+          if card_set.reprints == 0:
+            $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.reprints
+
+          # Update UI to reflect new amount
+          var total_quantity : int = card_set.reprints + card_set.reprints
+          if total_quantity == 0:
+            current_card.outline.card_image.material.shader = SHDR_GRAYSCALE
+          else:
+            current_card.outline.card_image.material.shader = null
+          Info.save_card(card)
 
 
 func _window_size_changed():
@@ -161,16 +243,35 @@ func _window_size_changed():
   grid.columns = columns
 
 
-func _card_pressed(card_id:int, set_rarity_code:String):
+func _card_pressed(card_outline:CardOutline, card_id:int, set_rarity_code:String):
+  # Find card to pull info from
   for card in Info.cards:
     if card.id == card_id:
-      $FullView/Margin/List/Info/List/Name.text = card.name
-      $FullView/Margin/List/Info/List/Rarity.text = set_rarity_code
-      $FullView/Margin/List/Info/Desc.text = card.desc
+      # Update full view card name
+      $FullView/Margin/Control/Info/List/Name.text = card.name
+      # Update full view card rarity
+      $FullView/Margin/Control/Info/List/Rarity.text = set_rarity_code
+      # Update full view card description
+      $FullView/Margin/Control/Info/Desc.text = card.desc
+      for card_set in card.card_sets:
+        if set.set_name == card_set.set_name and card_set.set_rarity_code == set_rarity_code:
+          # Update full view first edition card amount
+          $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.first_editions
+          # Update full view reprint card amount
+          $FullView/Margin/Control/Info/Reprint/Amount.text = "%d" % card_set.reprints
+          # Update full view card id + set code
+          $FullView/Margin/Control/Info/List/Id.text = "%s (%d)" % [card_set.set_code, card.id]
+          # Update full view card price in set
+          $FullView/Margin/Control/Info/Prices.text = "$%s" % card_set.set_price
       break
-  $FullView/Margin/List/Image.texture = get_card_texture(card_id)
+  
+  # Update full view card image
+  $FullView/Margin/Control/Image.texture = get_card_texture(card_id)
+  
+  # Update the card currently being viewed in full view
   current_card.id = card_id
   current_card.set_rarity_code = set_rarity_code
+  current_card.outline = card_outline
   $FullView.show()
 
 

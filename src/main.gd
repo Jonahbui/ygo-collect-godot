@@ -11,11 +11,11 @@ func _ready() -> void:
   Info.sets.sort_custom(Info, "sort_set_by_date_desc")
   form_cardsets(Info.sets)
   
-#  $Doc/Index.show()
-#  $Doc/CardDisplay.hide()
-#  $Doc/CardDisplay/List.show()
-#  $Doc/CardDisplay/FullView.hide()
-#  $Doc/Settings.hide()
+  $Doc/Index.show()
+  $Doc/CardDisplay.hide()
+  $Doc/CardDisplay/List.show()
+  $Doc/CardDisplay/FullView.hide()
+  $Doc/Settings.hide()
 
 
 func form_cardsets(sets:Array) -> void:

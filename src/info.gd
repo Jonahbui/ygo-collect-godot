@@ -165,7 +165,7 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
             "set_rarity": "Unknown",
             "set_rarity_code": "(?)",
           }]
-          new_card.card_sets = card.card_sets
+        new_card.card_sets = card.card_sets
         new_card.card_images = card.card_images
         if card.has("card_prices"):
           new_card.card_prices = card.card_prices
@@ -185,9 +185,13 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
 
 
 func save_meta() -> void:
-  var meta_path = "%s/%s" % [RSRC_PATH, META_FILE]
+  var meta_path := "%s/%s" % [RSRC_PATH, META_FILE]
   ResourceSaver.save(meta_path, meta, ResourceSaver.FLAG_CHANGE_PATH)
 
+
+func save_card(card:Card) -> void:
+  var card_path := "%s/%s.tres" % [CARDS_PATH, card.id]
+  ResourceSaver.save(card_path, card, ResourceSaver.FLAG_CHANGE_PATH)
 
 # : / \ ? * " | % < >
 static func clean(filename:String) -> String:
