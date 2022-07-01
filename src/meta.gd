@@ -14,6 +14,8 @@ enum {
 
 export var mask : int
 export var last_db_version : String
+export var last_set_created : String = ""
+export var last_card_created : int = -1
 
 func _init():
   self.mask = DB_NEW

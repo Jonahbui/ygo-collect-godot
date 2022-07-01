@@ -59,9 +59,22 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
         # TODO: update set info
         # NOTE: meta should contain the set
         var loaded_set : Set = ResourceLoader.load(set_path, "Resource", true)
+        loaded_set.set_name = set.set_name
+        loaded_set.set_code = set.set_code
+        loaded_set.num_of_cards = set.num_of_cards
+        if set.has("tcg_date"):
+          loaded_set.tcg_date = set.tcg_date
         Info.sets.append(loaded_set)
       # Generate a new set
       else:
+        # Restore checkpoint
+        if not Info.meta.last_set_created.empty():
+          if Info.meta.last_set_created != set.set_name:
+            continue
+          else:
+            Info.meta.last_set_created = ""
+          
+        # Create set resource
         var new_set : Set = SET.new()
         new_set.set_name = set.set_name
         new_set.set_code = set.set_code
@@ -70,7 +83,12 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
           new_set.tcg_date = set.tcg_date
         Info.sets.append(new_set)
         ResourceSaver.save(set_path, new_set, ResourceSaver.FLAG_CHANGE_PATH)
+        Info.meta.last_set_created = set.set_name
+        save_meta()
+    # TODO: create a default "unknown" set
+    
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.SET_RESOURCES_NEED_UPDATE, false)
+    Info.meta.last_set_created = ""
     save_meta()
   else:
     print("Loading set resources from local.")
@@ -90,28 +108,49 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
       if ResourceLoader.exists(card_path):
         # TODO: update card info
         var loaded_card : Card = ResourceLoader.load(card_path , "Resource", true)
+        loaded_card.id = card.id
+        loaded_card.name = card.name
+        loaded_card.type = card.type
+        loaded_card.race = card.race
+        if card.has("desc"):
+          loaded_card.desc = card.desc
+        if card.has("archetype"):
+          loaded_card.archetype = card.archetype
+        if card.has("card_sets"):
+          # TODO: figure out how to update card_sets
+          # 1. What if a new card set appears
+          # 2. What if a card set has its name updated. What to do about its cards
+          for card_set in card.card_sets:
+            pass
         Info.cards.append(loaded_card)
-      
+
       # Generate a new card
       else:
+        # Restore checkpoint
+        if Info.meta.last_card_created != -1:
+          if Info.meta.last_card_created != card.id:
+            continue
+          else:
+            Info.meta.last_card_created = -1
+        
+        # Create new card resource
         var new_card : Card = CARD.new()
         new_card.id = card.id
         new_card.name = card.name
-        if card.has("desc"):
-          new_card.desc = card.desc
         new_card.type = card.type
         new_card.race = card.race
+        if card.has("desc"):
+          new_card.desc = card.desc
         if card.has("archetype"):
           new_card.archetype = card.archetype
-        # TODO: figure out how to display cards that do not belong to a set
         if card.has("card_sets"):
           for card_set in card.card_sets:
             card_set["first_editions"] = 0
             card_set["reprints"] = 0
         else:
           card["card_sets"] = {
-            "set_name": "Unknown",
-            "set_code": "UNKN",
+            "set_name": Set.DEFAULT_SET_NAME,
+            "set_code": Set.DEFAULT_SET_CODE,
             "set_price": "?",
             "set_rarity": "Unknown",
             "set_rarity_code": "(?)",
@@ -122,18 +161,16 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
           new_card.card_prices = card.card_prices
         Info.cards.append(new_card)
         ResourceSaver.save(card_path, new_card, ResourceSaver.FLAG_CHANGE_PATH)
+        Info.meta.last_card_created = card.id
+        save_meta()
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.CARD_RESOURCES_NEED_UPDATE, false)
+    Info.meta.last_card_created = -1
     save_meta()
   else:
     print("Loading card resources from local.")
     for card_path in get_files_in_dir(CARDS_PATH, true):
       Info.cards.append(ResourceLoader.load(card_path, "Resource", true))
 
-  return OK
-
-
-func load_resources() -> int:
-  
   return OK
 
 
