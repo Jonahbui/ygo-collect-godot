@@ -16,8 +16,9 @@ var current_card := { "id": -1, "set_rarity_code": "", "outline": null}
 func _ready() -> void:
   get_tree().connect("screen_resized", self, "_window_size_changed")
 
-# TODO: sort card by setcode
+
 func form_set(selected_set_name:String) -> void: 
+  # TODO: sort card by setcode
   # Get the set being displayed
   self.set = Info.get_set_by_name(selected_set_name)
   
@@ -45,7 +46,7 @@ func form_set(selected_set_name:String) -> void:
           card_outline.card_image.disconnect("pressed", self, "_card_pressed")
         card_outline.card_image.connect("pressed", self, "_card_pressed", [card_outline, card.id, card_set.set_rarity_code])
         
-        # TODO: actually pull numbers for the number of cards collected
+        # Total card quantity
         var total_quantity : int = card_set.first_editions + card_set.reprints
         
         # Display card image
@@ -61,9 +62,9 @@ func form_set(selected_set_name:String) -> void:
         card_outline.card_name.text = card.name
         # Display card rarity
         card_outline.card_rarity.text = card_set.set_rarity_code
-        
         card_outline.show()
         i += 1
+        yield(get_tree(), "idle_frame")
         break
   file.close()
   self.show()
@@ -79,8 +80,7 @@ func get_card_texture(card_id) -> Texture:
     $HTTPRequest.request(image_url)
     var result = yield($HTTPRequest, "request_completed")
       
-    if result[0] != HTTPRequest.Result.RESULT_SUCCESS:
-      # TODO: return a default picture
+    if result[0] != HTTPRequest.RESULT_SUCCESS:
       print("Error. Could not download image. Result: %d. Return Code: %d" % [result[0], result[1]])
       return DEF_CARD_IMAGE
   else:
@@ -89,7 +89,6 @@ func get_card_texture(card_id) -> Texture:
   file.close()
   var error = image.load(image_path)
   if error != OK:
-    # TODO: load a default picture
     print("Error loading image.")
     return DEF_CARD_IMAGE
   
@@ -100,15 +99,21 @@ func get_card_texture(card_id) -> Texture:
 
 
 func create_card_outlines(set:Set) -> void:
+  var actual_card_count : int = 0
+  for card in Info.cards:
+    for card_set in card.card_sets:
+      if card_set.set_name == set.set_name:
+        actual_card_count += 1
+
   # More cards than card outlines
-  if set.num_of_cards > self.card_outlines.size():
-    for _i in range (0, set.num_of_cards - self.card_outlines.size()):
+  if actual_card_count > self.card_outlines.size():
+    for _i in range (0, actual_card_count - self.card_outlines.size()):
       var new_card = card_template.duplicate()
       grid.call_deferred("add_child", new_card)
       self.card_outlines.append(new_card)
   
   # Less cards than card outlines
-  elif set.num_of_cards < self.card_outlines.size():
+  elif actual_card_count < self.card_outlines.size():
     # Show the ones we need later; hide the rest
     for i in range(0, self.card_outlines.size()):
       self.card_outlines[i].hide()
@@ -277,3 +282,9 @@ func _card_pressed(card_outline:CardOutline, card_id:int, set_rarity_code:String
 
 func _back_pressed():
   $FullView.hide()
+
+
+func _background_gui_input(event:InputEvent):
+  if event is InputEventMouseButton:
+    if event.doubleclick:
+      $FullView.hide()

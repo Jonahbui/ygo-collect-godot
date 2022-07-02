@@ -3,6 +3,10 @@ class_name ColorButton
 extends Panel
 
 signal pressed()
+signal toggled(state)
+
+export(bool) var toggle_mode := false
+var toggled : bool = false
 
 export(Color) var color_hover = Color.black
 export(Color) var color_pressed = Color.gray
@@ -10,6 +14,10 @@ export(Color) var color_selected = Color.lightgray
 export(Color) var color_disabled = Color.black
 export(Color) var color_default = Color.white setget set_color_default
 var color_current : Color setget set_color_current
+
+func _init() -> void:
+  add_stylebox_override("panel", StyleBoxFlat.new())
+
 
 func _ready() -> void:
   set_color_current(color_default)
@@ -34,7 +42,11 @@ func on_gui_input(event:InputEvent) -> void:
       if event.pressed:
         set_color_current(color_pressed)
       else:
-        emit_signal("pressed")
+        if toggle_mode:
+          toggled = !toggled
+          emit_signal("toggled", toggled)
+        else:
+          emit_signal("pressed")
         set_color_current(color_selected if has_focus() else color_default)
 
 
@@ -50,7 +62,7 @@ func set_color_default(color:Color) -> void:
 
 func set_color_current(color:Color) -> void:
   color_current = color
-  if get_stylebox("panel") == null:
+  if not get_stylebox("panel"):
     add_stylebox_override("panel", StyleBoxFlat.new())
   var stylebox : StyleBoxFlat = self.get_stylebox("panel")
   stylebox.bg_color = color_current

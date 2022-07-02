@@ -51,20 +51,18 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
     
     var set_found := true if Info.meta.last_set_created == "" else false
     for set in card_sets:
-      var set_name = set.set_name
-      set_name = clean(set_name)
-      var set_path = "%s/%s.tres" % [SETS_PATH, set_name]
+      var set_path = "%s/%s.tres" % [SETS_PATH, clean(set.set_name)]
       
       # Load a set, but update its info
       if ResourceLoader.exists(set_path):
         # TODO: update set info
         # NOTE: meta should contain the set
         var loaded_set : Set = ResourceLoader.load(set_path, "Resource", true)
-        loaded_set.set_name = set.set_name
-        loaded_set.set_code = set.set_code
-        loaded_set.num_of_cards = set.num_of_cards
-        if set.has("tcg_date"):
-          loaded_set.tcg_date = set.tcg_date
+#        loaded_set.set_name = set.set_name
+#        loaded_set.set_code = set.set_code
+#        loaded_set.num_of_cards = set.num_of_cards
+#        if set.has("tcg_date"):
+#          loaded_set.tcg_date = set.tcg_date
         Info.sets.append(loaded_set)
       # Generate a new set
       else:
@@ -83,7 +81,7 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
         if set.has("tcg_date"):
           new_set.tcg_date = set.tcg_date
         Info.sets.append(new_set)
-        ResourceSaver.save(set_path, new_set, ResourceSaver.FLAG_CHANGE_PATH)
+        save_set(new_set)
         Info.meta.last_set_created = set.set_name
         save_meta()
 
@@ -92,9 +90,10 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
     default_set.set_name = Set.DEFAULT_SET_NAME
     default_set.set_code = Set.DEFAULT_SET_CODE
     default_set.num_of_cards = Set.DEfAULT_NUM_CARDS
+    default_set.num_of_unique_cards = Set.DEfAULT_NUM_CARDS
     default_set.tcg_date = ""
     Info.sets.append(default_set)
-    ResourceSaver.save("%s/%s.tres" % [SETS_PATH, default_set.set_name], default_set, ResourceSaver.FLAG_CHANGE_PATH)
+    save_set(default_set)
     
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.SET_RESOURCES_NEED_UPDATE, false)
     Info.meta.last_set_created = ""
@@ -125,20 +124,20 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
       if ResourceLoader.exists(card_path):
         # TODO: update card info
         var loaded_card : Card = ResourceLoader.load(card_path , "Resource", true)
-        loaded_card.id = card.id
-        loaded_card.name = card.name
-        loaded_card.type = card.type
-        loaded_card.race = card.race
-        if card.has("desc"):
-          loaded_card.desc = card.desc
-        if card.has("archetype"):
-          loaded_card.archetype = card.archetype
-        if card.has("card_sets"):
+#        loaded_card.id = card.id
+#        loaded_card.name = card.name
+#        loaded_card.type = card.type
+#        loaded_card.race = card.race
+#        if card.has("desc"):
+#          loaded_card.desc = card.desc
+#        if card.has("archetype"):
+#          loaded_card.archetype = card.archetype
+#        if card.has("card_sets"):
           # TODO: figure out how to update card_sets
           # 1. What if a new card set appears
           # 2. What if a card set has its name updated. What to do about its cards
-          for card_set in card.card_sets:
-            pass
+#          for card_set in card.card_sets:
+#            pass
         Info.cards.append(loaded_card)
 
       # Generate a new card
@@ -159,6 +158,8 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
             card_set["reprints"] = 0
         else:
           card["card_sets"] = [{
+            "first_editions": 0,
+            "reprints": 0,
             "set_name": Set.DEFAULT_SET_NAME,
             "set_code": Set.DEFAULT_SET_CODE,
             "set_price": "?",
@@ -166,11 +167,18 @@ func generate_resources(card_sets_path:String, card_info_path:String) -> int:
             "set_rarity_code": "(?)",
           }]
         new_card.card_sets = card.card_sets
+        # TODO: slow af
+        # Calculates the actual number of cards in this set.
+        for set in sets:
+          for card_set in new_card.card_sets:
+            if card_set.set_name == set.set_name:
+              set.num_of_unique_cards += 1
+              save_set(set)
         new_card.card_images = card.card_images
         if card.has("card_prices"):
           new_card.card_prices = card.card_prices
         Info.cards.append(new_card)
-        ResourceSaver.save(card_path, new_card, ResourceSaver.FLAG_CHANGE_PATH)
+        save_card(new_card)
         Info.meta.last_card_created = card.id
         save_meta()
     Info.meta.mask = Bitmask.set_flag(Info.meta.mask, Meta.CARD_RESOURCES_NEED_UPDATE, false)
@@ -192,6 +200,11 @@ func save_meta() -> void:
 func save_card(card:Card) -> void:
   var card_path := "%s/%s.tres" % [CARDS_PATH, card.id]
   ResourceSaver.save(card_path, card, ResourceSaver.FLAG_CHANGE_PATH)
+
+
+func save_set(set:Set) -> void:
+  var set_path := "%s/%s.tres" % [SETS_PATH, clean(set.set_name)]
+  ResourceSaver.save(set_path, set, ResourceSaver.FLAG_CHANGE_PATH)
 
 # : / \ ? * " | % < >
 static func clean(filename:String) -> String:

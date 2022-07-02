@@ -12,6 +12,4 @@ static func read_json(path:String) -> JSONParseResult:
   if parse.error == OK:
     return parse
   else:
-    # TODO: show error
-    print("Error.")
     return null

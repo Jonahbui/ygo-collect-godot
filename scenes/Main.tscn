@@ -1,7 +1,7 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://fonts/roboto-medium-title.tres" type="DynamicFont" id=2]
+[ext_resource path="res://icons/all.png" type="Texture" id=2]
 [ext_resource path="res://src/card_outline.gd" type="Script" id=3]
 [ext_resource path="res://src/main.gd" type="Script" id=4]
 [ext_resource path="res://images/default.jpg" type="Texture" id=5]
@@ -9,8 +9,65 @@
 [ext_resource path="res://src/color_button.gd" type="Script" id=7]
 [ext_resource path="res://src/shaders/blur.gdshader" type="Shader" id=8]
 [ext_resource path="res://src/card_display.gd" type="Script" id=9]
-[ext_resource path="res://icon.png" type="Texture" id=11]
+[ext_resource path="res://icons/ritual.png" type="Texture" id=10]
+[ext_resource path="res://icons/menu.png" type="Texture" id=11]
 [ext_resource path="res://fonts/roboto-medium-header1.tres" type="DynamicFont" id=12]
+[ext_resource path="res://icons/left_arrow.png" type="Texture" id=13]
+[ext_resource path="res://icons/right_arrow.png" type="Texture" id=14]
+[ext_resource path="res://icons/spell.png" type="Texture" id=15]
+[ext_resource path="res://icons/trap.png" type="Texture" id=16]
+[ext_resource path="res://icons/link.png" type="Texture" id=17]
+[ext_resource path="res://icons/xyz.png" type="Texture" id=18]
+[ext_resource path="res://icons/synchro.png" type="Texture" id=19]
+[ext_resource path="res://icons/fusion.png" type="Texture" id=20]
+[ext_resource path="res://icons/monster.png" type="Texture" id=21]
+[ext_resource path="res://icons/pendelum.png" type="Texture" id=22]
+[ext_resource path="res://src/set_outline.gd" type="Script" id=23]
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=22]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "zoom_in"
@@ -49,33 +106,142 @@ shader = ExtResource( 6 )
 shader = ExtResource( 8 )
 shader_param/blur_amount = null
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=28]
 bg_color = Color( 1, 0.588235, 0.588235, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=29]
 bg_color = Color( 0.686275, 1, 0.588235, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=30]
 bg_color = Color( 1, 0.588235, 0.588235, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=31]
 bg_color = Color( 0.686275, 1, 0.588235, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id=32]
+resource_name = "hide_monsters"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Doc/Index/SideBar/Margin/List/Control/MonsterList:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "loading"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Doc/Index/Body/TableBackground/Table/Loading:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 8, 9, 10 ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "show_monsters"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Doc/Index/SideBar/Margin/List/Control/MonsterList:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "slide_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Doc/Index/SideBar:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 240, 0 ), Vector2( 64, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Doc/Index/SideBar/Margin/List/SlideOut:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Doc/Index/SideBar/Margin/List/SlideIn:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "slide_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Doc/Index/SideBar:rect_min_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 64, 0 ), Vector2( 240, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Doc/Index/SideBar/Margin/List/SlideOut:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Doc/Index/SideBar/Margin/List/SlideIn:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [node name="Main" type="CanvasLayer"]
 
@@ -98,53 +264,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 custom_constants/separation = 0
 
-[node name="Header" type="ColorRect" parent="Control/Doc"]
-margin_right = 1024.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 0, 64 )
-mouse_default_cursor_shape = 6
-color = Color( 0.0745098, 0.0823529, 0.12549, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Margin" type="MarginContainer" parent="Control/Doc/Header"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-custom_constants/margin_right = 16
-custom_constants/margin_top = 8
-custom_constants/margin_left = 16
-custom_constants/margin_bottom = 8
-
-[node name="List" type="HBoxContainer" parent="Control/Doc/Header/Margin"]
-margin_left = 16.0
-margin_top = 8.0
-margin_right = 1008.0
-margin_bottom = 56.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Title" type="Label" parent="Control/Doc/Header/Margin/List"]
-margin_top = 5.0
-margin_right = 247.0
-margin_bottom = 43.0
-custom_fonts/font = ExtResource( 2 )
-text = "Yu-Gi-Oh! Collect"
-align = 1
-valign = 1
-
-[node name="VSeparator" type="VSeparator" parent="Control/Doc/Header/Margin/List"]
-margin_left = 251.0
-margin_right = 992.0
-margin_bottom = 48.0
-mouse_filter = 2
-size_flags_horizontal = 3
-
 [node name="Index" type="HBoxContainer" parent="Control/Doc"]
-visible = false
-margin_top = 64.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -152,8 +272,9 @@ size_flags_vertical = 3
 
 [node name="SideBar" type="ColorRect" parent="Control/Doc/Index"]
 margin_right = 240.0
-margin_bottom = 536.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 240, 0 )
+rect_clip_content = true
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
 [node name="Margin" type="MarginContainer" parent="Control/Doc/Index/SideBar"]
@@ -169,57 +290,85 @@ custom_constants/margin_bottom = 16
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 224.0
-margin_bottom = 520.0
-size_flags_vertical = 3
-custom_constants/separation = 1
+margin_bottom = 584.0
+custom_constants/separation = 8
+
+[node name="SlideOut" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List"]
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 13 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/SlideOut"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 14 )
+expand = true
+
+[node name="SlideIn" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 14 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/SlideIn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 13 )
+expand = true
 
 [node name="HSeparator" type="HSeparator" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_top = 40.0
 margin_right = 208.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 12, 36 )
+margin_bottom = 58.0
+rect_min_size = Vector2( 12, 18 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 37.0
-margin_right = 208.0
-margin_bottom = 56.0
+[node name="All" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_top = 66.0
+margin_right = 32.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 15 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
 
-[node name="Label" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer2"]
-margin_right = 118.0
-margin_bottom = 19.0
-text = "Sets Completed "
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/All"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
 
-[node name="Label2" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer2"]
-margin_left = 122.0
-margin_right = 131.0
-margin_bottom = 19.0
-text = "0"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 57.0
-margin_right = 208.0
-margin_bottom = 76.0
-
-[node name="Label" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer"]
-margin_right = 137.0
-margin_bottom = 19.0
-text = "Overall Completion"
-
-[node name="Label2" type="Label" parent="Control/Doc/Index/SideBar/Margin/List/HBoxContainer"]
-margin_left = 141.0
-margin_right = 162.0
-margin_bottom = 19.0
-text = "0%"
-
-[node name="HSeparator2" type="HSeparator" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 77.0
-margin_right = 208.0
-margin_bottom = 113.0
-rect_min_size = Vector2( 12, 36 )
-
-[node name="All" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 114.0
-margin_right = 208.0
-margin_bottom = 146.0
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/All"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
 rect_min_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 0
@@ -227,87 +376,35 @@ text = "All"
 flat = true
 align = 0
 
-[node name="Normal_Effects" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 147.0
-margin_right = 208.0
-margin_bottom = 179.0
-rect_min_size = Vector2( 0, 32 )
+[node name="Spells" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_top = 106.0
+margin_right = 32.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 32, 32 )
 mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "Normals & Effects"
-flat = true
-align = 0
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 16 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
 
-[node name="Rituals" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 180.0
-margin_right = 208.0
-margin_bottom = 212.0
-rect_min_size = Vector2( 0, 32 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "Rituals"
-flat = true
-align = 0
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Spells"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 15 )
+expand = true
 
-[node name="Fusions" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 213.0
-margin_right = 208.0
-margin_bottom = 245.0
-rect_min_size = Vector2( 0, 32 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "Fusions"
-flat = true
-align = 0
-
-[node name="Synchros" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 246.0
-margin_right = 208.0
-margin_bottom = 278.0
-rect_min_size = Vector2( 0, 32 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "Synchros"
-flat = true
-align = 0
-
-[node name="XYZs" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 279.0
-margin_right = 208.0
-margin_bottom = 311.0
-rect_min_size = Vector2( 0, 32 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "XYZs"
-flat = true
-align = 0
-
-[node name="Pendelums" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 312.0
-margin_right = 208.0
-margin_bottom = 344.0
-rect_min_size = Vector2( 0, 32 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "Pendelums"
-flat = true
-align = 0
-
-[node name="Links" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 345.0
-margin_right = 208.0
-margin_bottom = 377.0
-rect_min_size = Vector2( 0, 32 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 0
-text = "Links"
-flat = true
-align = 0
-
-[node name="Spells" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 378.0
-margin_right = 208.0
-margin_bottom = 410.0
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Spells"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
 rect_min_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 0
@@ -315,10 +412,35 @@ text = "Spells"
 flat = true
 align = 0
 
-[node name="Traps" type="Button" parent="Control/Doc/Index/SideBar/Margin/List"]
-margin_top = 411.0
-margin_right = 208.0
-margin_bottom = 443.0
+[node name="Traps" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_top = 146.0
+margin_right = 32.0
+margin_bottom = 178.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 17 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Traps"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Traps"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
 rect_min_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 0
@@ -326,21 +448,369 @@ text = "Traps"
 flat = true
 align = 0
 
-[node name="Settings" type="TextureButton" parent="Control/Doc/Index/SideBar"]
+[node name="Monsters" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_top = 186.0
+margin_right = 32.0
+margin_bottom = 218.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 18 )
+script = ExtResource( 7 )
+toggle_mode = true
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Monsters"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 21 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Monsters"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+toggle_mode = true
+text = "Monsters"
+flat = true
+align = 0
+
+[node name="Control" type="Control" parent="Control/Doc/Index/SideBar/Margin/List"]
+margin_top = 226.0
+margin_right = 208.0
+margin_bottom = 226.0
+
+[node name="MonsterList" type="VBoxContainer" parent="Control/Doc/Index/SideBar/Margin/List/Control"]
+margin_right = 208.0
+margin_bottom = 312.0
+rect_scale = Vector2( 1, 1e-05 )
+custom_constants/separation = 8
+
+[node name="Normals" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 19 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Normals"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 21 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Normals"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Normals"
+flat = true
+align = 0
+
+[node name="Effects" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 40.0
+margin_right = 32.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 20 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Effects"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 21 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Effects"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Effects"
+flat = true
+align = 0
+
+[node name="Rituals" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 80.0
+margin_right = 32.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 21 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Rituals"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Rituals"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Rituals"
+flat = true
+align = 0
+
+[node name="Fusions" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 120.0
+margin_right = 32.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 22 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Fusions"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 20 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Fusions"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Fusions"
+flat = true
+align = 0
+
+[node name="Synchros" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 160.0
+margin_right = 32.0
+margin_bottom = 192.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 23 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Synchros"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 19 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Synchros"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Synchro"
+flat = true
+align = 0
+
+[node name="XYZs" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 200.0
+margin_right = 32.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 24 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/XYZs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 18 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/XYZs"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "XYZs"
+flat = true
+align = 0
+
+[node name="Pendelums" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 240.0
+margin_right = 32.0
+margin_bottom = 272.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 25 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Pendelums"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 22 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Pendelums"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Pendelums"
+flat = true
+align = 0
+
+[node name="Links" type="Panel" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList"]
+margin_top = 280.0
+margin_right = 32.0
+margin_bottom = 312.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+custom_styles/panel = SubResource( 26 )
+script = ExtResource( 7 )
+color_hover = Color( 0.187, 0.20995, 0.34, 1 )
+color_pressed = Color( 0.077, 0.08645, 0.14, 1 )
+color_selected = Color( 0.239216, 0.266667, 0.419608, 1 )
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Links"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 17 )
+expand = true
+
+[node name="Text" type="Button" parent="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Links"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 19.0
+margin_top = -15.0
+margin_right = 161.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 0
+text = "Links"
+flat = true
+align = 0
+
+[node name="Settings" type="Panel" parent="Control/Doc/Index/SideBar"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 9.0
+margin_left = 16.0
 margin_top = -37.0
-margin_right = 36.0
+margin_right = 43.0
 margin_bottom = -8.0
-texture_normal = ExtResource( 11 )
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 27 )
+script = ExtResource( 7 )
+toggle_mode = true
+color_default = Color( 0.101961, 0.113725, 0.184314, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/Doc/Index/SideBar/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+texture = ExtResource( 11 )
 expand = true
-stretch_mode = 5
 
 [node name="Body" type="MarginContainer" parent="Control/Doc/Index"]
 margin_left = 244.0
 margin_right = 1024.0
-margin_bottom = 536.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
@@ -351,7 +821,7 @@ custom_constants/margin_bottom = 16
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 764.0
-margin_bottom = 520.0
+margin_bottom = 584.0
 color = Color( 0.101961, 0.113725, 0.184314, 1 )
 
 [node name="Table" type="VBoxContainer" parent="Control/Doc/Index/Body/TableBackground"]
@@ -362,15 +832,16 @@ margin_top = 16.0
 margin_right = -16.0
 margin_bottom = -16.0
 
-[node name="Title" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table"]
+[node name="SearchBar" type="LineEdit" parent="Control/Doc/Index/Body/TableBackground/Table"]
 margin_right = 716.0
-margin_bottom = 19.0
-text = "Sets"
+margin_bottom = 29.0
+placeholder_text = "Search..."
+caret_blink = true
 
 [node name="Header" type="Button" parent="Control/Doc/Index/Body/TableBackground/Table"]
-margin_top = 23.0
+margin_top = 33.0
 margin_right = 716.0
-margin_bottom = 48.0
+margin_bottom = 58.0
 mouse_filter = 1
 size_flags_horizontal = 3
 disabled = true
@@ -394,7 +865,7 @@ margin_top = 3.0
 margin_right = 384.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
-text = "Name"
+text = "Set Name"
 
 [node name="Code" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table/Header/Data"]
 margin_left = 388.0
@@ -427,17 +898,26 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 100, 0 )
 text = "Date"
 
-[node name="Margin" type="ScrollContainer" parent="Control/Doc/Index/Body/TableBackground/Table"]
-margin_top = 52.0
+[node name="Loading" type="Label" parent="Control/Doc/Index/Body/TableBackground/Table"]
+margin_top = 170.0
 margin_right = 716.0
-margin_bottom = 472.0
+margin_bottom = 189.0
+size_flags_vertical = 6
+text = "Loading..."
+align = 1
+valign = 1
+
+[node name="Margin" type="ScrollContainer" parent="Control/Doc/Index/Body/TableBackground/Table"]
+margin_top = 301.0
+margin_right = 716.0
+margin_bottom = 536.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="Body" type="VBoxContainer" parent="Control/Doc/Index/Body/TableBackground/Table/Margin"]
 margin_right = 716.0
-margin_bottom = 420.0
+margin_bottom = 235.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -451,6 +931,7 @@ size_flags_horizontal = 3
 flat = true
 clip_text = true
 align = 0
+script = ExtResource( 23 )
 
 [node name="ColorRect" type="ColorRect" parent="Control/Doc/Index/Body/TableBackground/Table/Margin/Body/Row"]
 visible = false
@@ -508,6 +989,7 @@ rect_min_size = Vector2( 100, 0 )
 text = "00/00/0000"
 
 [node name="CardDisplay" type="MarginContainer" parent="Control/Doc"]
+visible = false
 margin_top = 64.0
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -701,6 +1183,7 @@ margin_left = -16.0
 margin_top = -16.0
 margin_right = 1008.0
 margin_bottom = 520.0
+mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
@@ -712,6 +1195,7 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = 1008.0
 margin_bottom = 520.0
+mouse_filter = 2
 
 [node name="Image" type="TextureRect" parent="Control/Doc/CardDisplay/FullView/Margin/Control"]
 anchor_right = 0.349
@@ -719,6 +1203,7 @@ anchor_bottom = 1.0
 margin_right = -0.208008
 rect_min_size = Vector2( 346, 472 )
 rect_pivot_offset = Vector2( 130, 189 )
+mouse_filter = 2
 size_flags_vertical = 13
 texture = ExtResource( 5 )
 expand = true
@@ -729,12 +1214,14 @@ anchor_left = 0.349
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 9.79199
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="List" type="HBoxContainer" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
 margin_right = 636.0
 margin_bottom = 29.0
+mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="Name" type="RichTextLabel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info/List"]
@@ -766,12 +1253,14 @@ margin_top = 33.0
 margin_right = 636.0
 margin_bottom = 41.0
 rect_min_size = Vector2( 0, 8 )
+mouse_filter = 2
 
 [node name="Desc" type="RichTextLabel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
 margin_top = 45.0
 margin_right = 636.0
 margin_bottom = 69.0
 rect_min_size = Vector2( 0, 24 )
+mouse_filter = 2
 text = "Description"
 fit_content_height = true
 scroll_active = false
@@ -781,6 +1270,7 @@ margin_top = 73.0
 margin_right = 636.0
 margin_bottom = 364.0
 rect_min_size = Vector2( 0, 8 )
+mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="PricesTitle" type="RichTextLabel" parent="Control/Doc/CardDisplay/FullView/Margin/Control/Info"]
@@ -788,6 +1278,7 @@ margin_top = 368.0
 margin_right = 636.0
 margin_bottom = 392.0
 rect_min_size = Vector2( 0, 24 )
+mouse_filter = 2
 text = "Set Price"
 fit_content_height = true
 scroll_active = false
@@ -797,6 +1288,7 @@ margin_top = 396.0
 margin_right = 636.0
 margin_bottom = 420.0
 rect_min_size = Vector2( 0, 24 )
+mouse_filter = 2
 text = "$"
 fit_content_height = true
 scroll_active = false
@@ -828,7 +1320,7 @@ margin_right = 198.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 rect_clip_content = true
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 28 )
 script = ExtResource( 7 )
 color_hover = Color( 1, 0.721569, 0.721569, 1 )
 color_pressed = Color( 1, 0.458824, 0.458824, 1 )
@@ -842,7 +1334,7 @@ margin_right = 234.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 rect_clip_content = true
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 29 )
 script = ExtResource( 7 )
 color_hover = Color( 0.733333, 1, 0.65098, 1 )
 color_pressed = Color( 0.447059, 0.65098, 0.384314, 1 )
@@ -883,7 +1375,7 @@ margin_right = 198.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 rect_clip_content = true
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 30 )
 script = ExtResource( 7 )
 color_hover = Color( 1, 0.588235, 0.588235, 1 )
 color_pressed = Color( 1, 0.458824, 0.458824, 1 )
@@ -897,7 +1389,7 @@ margin_right = 234.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 rect_clip_content = true
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 31 )
 script = ExtResource( 7 )
 color_hover = Color( 0.733333, 1, 0.65098, 1 )
 color_pressed = Color( 0.447059, 0.65098, 0.384314, 1 )
@@ -1014,9 +1506,32 @@ margin_right = 228.0
 margin_bottom = 27.0
 pressed = true
 
-[connection signal="gui_input" from="Control/Doc/Header" to="Control" method="header_gui_input"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+anims/hide_monsters = SubResource( 32 )
+anims/loading = SubResource( 34 )
+anims/show_monsters = SubResource( 33 )
+anims/slide_in = SubResource( 11 )
+anims/slide_out = SubResource( 12 )
+
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/SlideOut" to="Control" method="slide_out_pressed"]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/SlideIn" to="Control" method="slide_in_pressed"]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/All" to="Control" method="_card_type_pressed" binds= [ "All" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Spells" to="Control" method="_card_type_pressed" binds= [ "Spells" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Traps" to="Control" method="_card_type_pressed" binds= [ "Traps" ]]
+[connection signal="toggled" from="Control/Doc/Index/SideBar/Margin/List/Monsters" to="Control" method="_monsters_toggled"]
+[connection signal="toggled" from="Control/Doc/Index/SideBar/Margin/List/Monsters/Text" to="Control" method="_monsters_toggled"]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Normals" to="Control" method="_card_type_pressed" binds= [ "Normals" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Effects" to="Control" method="_card_type_pressed" binds= [ "Effects" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Rituals" to="Control" method="_card_type_pressed" binds= [ "Rituals" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Fusions" to="Control" method="_card_type_pressed" binds= [ "Fusions" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Synchros" to="Control" method="_card_type_pressed" binds= [ "Synchros" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/XYZs" to="Control" method="_card_type_pressed" binds= [ "XYZs" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Pendelums" to="Control" method="_card_type_pressed" binds= [ "Pendelums" ]]
+[connection signal="pressed" from="Control/Doc/Index/SideBar/Margin/List/Control/MonsterList/Links" to="Control" method="_card_type_pressed" binds= [ "Links" ]]
 [connection signal="pressed" from="Control/Doc/Index/SideBar/Settings" to="Control" method="settings_pressed"]
+[connection signal="text_changed" from="Control/Doc/Index/Body/TableBackground/Table/SearchBar" to="Control" method="_search_text_changed"]
 [connection signal="pressed" from="Control/Doc/CardDisplay/List/Back" to="Control" method="cardset_back_pressed"]
+[connection signal="gui_input" from="Control/Doc/CardDisplay/FullView/BackgroundBlur" to="Control/Doc/CardDisplay" method="_background_gui_input"]
 [connection signal="text_changed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First/Amount" to="Control/Doc/CardDisplay" method="_quantity_first_editions_changed"]
 [connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First/Decrement" to="Control/Doc/CardDisplay" method="_decrement_first_editions"]
 [connection signal="pressed" from="Control/Doc/CardDisplay/FullView/Margin/Control/Info/First/Increment" to="Control/Doc/CardDisplay" method="_increment_first_editions"]
