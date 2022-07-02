@@ -128,7 +128,7 @@ func _increment_first_editions():
     if card.id == current_card.id:
       for card_set in card.card_sets:
         if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
-          card_set.reprints = int(clamp(card_set.first_editions + 1, 0 , 999))
+          card_set.first_editions = int(clamp(card_set.first_editions + 1, 0 , 999))
 
           # Update UI to reflect new amount
           $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.first_editions
@@ -158,7 +158,7 @@ func _decrement_first_editions():
     if card.id == current_card.id:
       for card_set in card.card_sets:
         if card_set.set_name == set.set_name and card_set.set_rarity_code ==  current_card.set_rarity_code:
-          card_set.reprints = int(clamp(card_set.first_editions - 1, 0 , 999))
+          card_set.first_editions = int(clamp(card_set.first_editions - 1, 0 , 999))
           
           # Update UI to reflect new amount
           $FullView/Margin/Control/Info/First/Amount.text = "%d" % card_set.first_editions
