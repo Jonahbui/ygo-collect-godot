@@ -1,5 +1,11 @@
 # Yu-Gi-Oh! Collect
-A godot project that serves to track a user's card collection progress.
+A godot project that serves to track a user's Yu-Gi-Oh! card collection progress. 
+
+## Goal
+This application is focused on what cards you do and do not have instead of also including card condition, language, and grading. 
+
+#### How are cards organized?
+A unique card is differentiated by its set and rarity instead of being grouped together with all its other prints. So two cards with the same ID across different sets, do not complete both sets.
 
 ## Features
 This project is still in the works, but currently features:
